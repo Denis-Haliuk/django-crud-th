@@ -1,14 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import StudForm, PrepodForm
+
+from .models import Spisok_stud, Prepod
 # Create your views here.
 
+def main_page(request):
+    return render(request, "register/main_page.html")
+
 def stud_list(request):
-    return render(request, "register/stud_list.html")
+    context = {'stud_list':Spisok_stud.objects.all()}
+    return render(request, "register/stud_list.html", context)
 
 def stud_form(request):
-    form = StudForm()
-    return render(request, "register/stud_form.html", {'form':form})
-    
+    if request.method == "GET":
+        form = StudForm()
+        return render(request, "register/stud_form.html", {'form':form})
+    else:
+        form = StudForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/crud/stud_list')
 def stud_delete(request):
     return
 

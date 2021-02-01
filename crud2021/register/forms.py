@@ -4,7 +4,36 @@ from .models import Spisok_stud, Prepod
 class StudForm(forms.ModelForm):
     class Meta:
         model = Spisok_stud
-        fields = '__all__'
+        fields = ('n_stud', 'familiya', 'imya','otchestvo',
+        'sex', 'vpo', 'sirota','invalid',
+        'ato', 'chernobil', 'maloobespech','budget',
+        'data_rozhdeniya', 'city', 'street','n_tel',
+        'n_group', 'inn', 'pasport','id_stan')
+        labels={
+        'n_stud':'Номер студента',
+        'familiya':'Прізвище',
+        'imya':'Ім`я',
+        'otchestvo':'По-батькові',
+        'sex':'Стать',
+        'vpo':'ВПО',
+        'sirota':'Сирота',
+        'invalid':'Інвалід',
+        'ato':'АТО',
+        'chernobil':'Чорнобиль',
+        'maloobespech':'Малозабезпечений',
+        'budget':'Бюджет',
+        'data_rozhdeniya':'Дата народження',
+        'city':'Місто',
+        'street':'Вулиця',
+        'n_tel':'Номер телефону',
+        'n_group':'Номер групи',
+        'inn':'ІПН',
+        'pasport':'Паспорт',
+        #'id_stan':''
+
+        }
+
+        
 
 class PrepodForm(forms.ModelForm):
     class Meta:

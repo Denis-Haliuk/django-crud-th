@@ -22,6 +22,9 @@ class Groups(models.Model):
     ]
     forma = models.CharField(max_length=7, choices=FORM_CHOICES, default=day)
 
+    def __str__(self):
+        return self.nazvanie
+
 class Spisok_stud(models.Model):
     n_stud = models.IntegerField()
     familiya = models.CharField(max_length=100)

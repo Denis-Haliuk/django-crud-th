@@ -1,5 +1,33 @@
 {% extends "register/prepod/prepod_base.html" %}
 
 {% block content %}
-<p>тут бдует список</p>
+<a class="btn btn-success" href="{% url 'prepod_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Номер студента</td>
+            <td>Прізвище</td>
+            <td>Ім`я</td>
+            <td>По-батькові</td>
+            <td>Категорія</td>
+            <td>Дата народження</td>
+            <td>Стать</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Prepod in prepod_list %}
+        <tr>
+            <td>{{Prepod.n_prepod}}</td>
+            <td>{{Prepod.familiya}}</td>
+            <td>{{Prepod.imya}}</td>
+            <td>{{Prepod.otchestvo}}</td>
+            <td>{{Prepod.category}}</td>
+            <td>{{Prepod.data_rozhd}}</td>
+            <td>{{Prepod.sex}}</td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+            
 {% endblock content %}

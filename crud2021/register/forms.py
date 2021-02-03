@@ -38,4 +38,13 @@ class StudForm(forms.ModelForm):
 class PrepodForm(forms.ModelForm):
     class Meta:
         model = Prepod
-        fields ='__all__'
+        fields = ('n_prepod', 'familiya', 'imya','otchestvo','category',
+        'data_rozhd','sex')
+        labels={
+        'n_prepod':'Номер викладача',
+        'familiya':'Прізвище',
+        'imya':'Ім`я',
+        'otchestvo':'По-батькові',
+        'category':'Категорія',
+        'data_rozhd':'Дата народження',
+        'sex':'Стать',}

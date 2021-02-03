@@ -1,17 +1,19 @@
 {% extends "register/prepod/prepod_base.html" %}
 
 {% block content %}
+<div class="overflow-auto">
 <a class="btn btn-success" href="{% url 'prepod_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td>Номер студента</td>
+            <td>Номер викладача</td>
             <td>Прізвище</td>
             <td>Ім`я</td>
             <td>По-батькові</td>
             <td>Категорія</td>
             <td>Дата народження</td>
             <td>Стать</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -24,10 +26,22 @@
             <td>{{Prepod.category}}</td>
             <td>{{Prepod.data_rozhd}}</td>
             <td>{{Prepod.sex}}</td>
+            <td>
+            <a href="{% url 'prepod_form_id' Prepod.id %}" class="btn text-secondary px-0">
+                <i class="far fa-edit fa-lg"></i>
+            </a>
+            <form  action="{% url 'prepod_delete' Prepod.id %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                </button>
+            </form>
+            </td>
         </tr>
         
         {% endfor %}
     </tbody>
 </table>
+</div>
             
 {% endblock content %}

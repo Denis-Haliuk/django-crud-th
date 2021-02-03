@@ -1,4 +1,4 @@
-{% extends "register/prepod/prepod_base.html" %}
+{% extends "register/specialnost/spec_base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -11,7 +11,7 @@
            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="far fa-plus-square"></i> Продовжити</button>     
         </div>
         <div class="col-md-4">
-            <a href="{% url 'prepod_list' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-long-arrow-alt-left"></i> Назад</a>     
+            <a href="{% url 'spec_list' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-long-arrow-alt-left"></i> Назад</a>     
          </div>
     </div>
 </form>

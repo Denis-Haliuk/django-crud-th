@@ -3,7 +3,7 @@ from datetime import date
 # Create your models here.
 
 
-
+#удалить все n_... и вместо них выводить id из postgres
 class Specialnost(models.Model):
     n_specialnosty = models.IntegerField()
     abbreviatura = models.CharField(max_length=100)
@@ -12,7 +12,7 @@ class Specialnost(models.Model):
 class Groups(models.Model):
     n_group = models.IntegerField()
     nazvanie = models.CharField(max_length=100)
-    n_specialnosty = models.ForeignKey(Specialnost, on_delete=models.CASCADE)
+    n_specialnosty = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
     kurs = models.IntegerField()
     day='дневная'
     zaoch='заочная'
@@ -48,7 +48,7 @@ class Spisok_stud(models.Model):
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     n_tel = models.CharField(max_length=13)
-    n_group = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    n_group = models.ForeignKey(Groups, on_delete=models.CASCADE) #разобраться
     inn = models.CharField(max_length=100)
     pasport = models.CharField(max_length=100)
     id_stan = models.CharField(max_length=100)
@@ -56,7 +56,7 @@ class Spisok_stud(models.Model):
 class Predmety(models.Model):
     n_predmeta = models.IntegerField()
     nazv_predmeta = models.CharField(max_length=100)
-    specialnost = models.ForeignKey(Specialnost, on_delete=models.CASCADE)
+    specialnost = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
 
 class Prepod(models.Model):
     n_prepod = models.IntegerField()

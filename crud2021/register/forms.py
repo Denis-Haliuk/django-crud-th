@@ -1,5 +1,5 @@
 from django import forms
-from .models import Spisok_stud, Prepod
+from .models import Spisok_stud, Prepod, Specialnost
 
 class StudForm(forms.ModelForm):
     class Meta:
@@ -48,3 +48,13 @@ class PrepodForm(forms.ModelForm):
         'category':'Категорія',
         'data_rozhd':'Дата народження',
         'sex':'Стать',}
+
+class SpecForm(forms.ModelForm):
+    class Meta:
+        model = Specialnost
+        fields = ('n_specialnosty', 'abbreviatura', 'polnoe_nazv')
+        labels={
+        'n_specialnosty':'Номер спеціальності',
+        'abbreviatura':'Абревіатура',
+        'polnoe_nazv':'Повна назва',
+        }

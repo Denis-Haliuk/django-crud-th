@@ -16,7 +16,7 @@ def stud_form(request, id=0):
         if id==0:
             form = StudForm()
         else:
-            stud= Spisok_stud.objects.GET(pk=id)
+            stud= Spisok_stud.objects.get(pk=id)
             form = StudForm(instance=stud)
         return render(request, "register/stud_form.html", {'form':form})
     else:

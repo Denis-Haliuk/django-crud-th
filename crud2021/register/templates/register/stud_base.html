@@ -41,13 +41,15 @@
     
           <div class="jumbotron jumbotron-fluid ">
             <div class="container">
-                <h1 class="display-4 font-weight-bold">Список студентов</h1>
+              <div class="overflow-auto">
+                <h1 class="display-4 font-weight-bold ">Список студентов</h1>
                 <p class="lead">CRUD</p>
                 <hr class="my-4">
-                {% block content %}
-                {% endblock content %}
+                  {% block content %}
+                  {% endblock content %}
               </div>
-              </div>
+            </div>
+          </div>
       
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 

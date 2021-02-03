@@ -25,6 +25,7 @@
             <td>ІПН</td>
             <td>Паспорт</td>
             <td>id_stan</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +51,11 @@
             <td>{{Spisok_stud.inn}}</td>
             <td>{{Spisok_stud.pasport}}</td>
             <td>{{Spisok_stud.id_stan}}</td>
+            <td>
+                <a href="{% url 'stud_form_id' Spisok_stud.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+            </td>
         </tr>
         
         {% endfor %}

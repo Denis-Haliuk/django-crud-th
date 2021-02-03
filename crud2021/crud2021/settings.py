@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'crud2021.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crud2021',
+        'NAME': 'crud20',
         'USER' : 'postgres',
         'PASSWORD' : '0000',
         'HOST' : 'localhost',

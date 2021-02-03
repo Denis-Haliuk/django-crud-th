@@ -11,24 +11,37 @@ def stud_list(request):
     context = {'stud_list':Spisok_stud.objects.all()}
     return render(request, "register/stud_list.html", context)
 
-def stud_form(request):
+def stud_form(request, id=0):
     if request.method == "GET":
-        form = StudForm()
+        if id==0:
+            form = StudForm()
+        else:
+            stud= Spisok_stud.objects.GET(pk=id)
+            form = StudForm(instance=stud)
         return render(request, "register/stud_form.html", {'form':form})
     else:
         form = StudForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('/crud/stud_list')
+        return redirect('/stud_list')
 def stud_delete(request):
     return
+
+
+
 
 def prepod_list(request):
     return render(request, "register/prepod/prepod_list.html")
 
 def prepod_form(request):
-    form = PrepodForm()
-    return render(request, "register/prepod/prepod_form.html", {'form':form})
+    if request.method == "GET":
+        form = PrepodForm()
+        return render(request, "register/prepod/prepod_form.html", {'form':form})
+    else:
+        form = PrepodForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/prepod_list')
 
 def prepod_delete(request):
     return

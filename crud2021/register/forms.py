@@ -1,9 +1,24 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.db.models.fields import DateField
 from .models import Spisok_stud, Prepod, Specialnost
+from django.conf import settings
+#from datetime import datetime
+#from django.core import validators
 
 class StudForm(forms.ModelForm):
+    data_rozhdeniya = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label='Дата народження', help_text='Приклад: 18-08-2000',)
+    #def clean_data_rozhdeniya(self):
+        #data = self.cleaned_data['data_rozhdeniya']
+        #t = datetime(data)
+       # try:
+           #t = t.strftime('%d-%m-%Y')
+        #except ValueError:
+            #raise ValidationError('Неправильна дата!')
+        #return data
     class Meta:
         model = Spisok_stud
+        #data_rozhdeniya = DateField(input_formats=settings.DATE_INPUT_FORMATS)
         fields = ('n_stud', 'familiya', 'imya','otchestvo',
         'sex', 'vpo', 'sirota','invalid',
         'ato', 'chernobil', 'maloobespech','budget',
@@ -22,7 +37,7 @@ class StudForm(forms.ModelForm):
         'chernobil':'Чорнобиль',
         'maloobespech':'Малозабезпечений',
         'budget':'Бюджет',
-        'data_rozhdeniya':'Дата народження',
+        #'data_rozhdeniya':'Дата народження',
         'city':'Місто',
         'street':'Вулиця',
         'n_tel':'Номер телефону',

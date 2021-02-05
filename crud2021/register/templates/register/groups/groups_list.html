@@ -1,0 +1,43 @@
+{% extends "register/groups/groups_base.html" %}
+
+{% block content %}
+<div class="overflow-auto">
+<a class="btn btn-success" href="{% url 'groups_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Номер групи</td>
+            <td>Назва групи</td>
+            <td>Номер спеціальності</td>
+            <td>Курс</td>
+            <td>Форма навчання</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Groups in groups_list %}
+        <tr>
+            <td>{{Groups.n_group}}</td>
+            <td>{{Groups.nazvanie}}</td>
+            <td>{{Groups.n_specialnosty}}</td>
+            <td>{{Groups.kurs}}</td>
+            <td>{{Groups.forma}}</td>
+            <td>
+            <a href="{% url 'groups_form_id' Groups.id %}" class="btn text-secondary px-0">
+                <i class="far fa-edit fa-lg"></i>
+            </a>
+            <form  action="{% url 'groups_delete' Groups.id %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                </button>
+            </form>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+            
+{% endblock content %}

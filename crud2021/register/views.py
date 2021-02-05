@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import StudForm, PrepodForm, SpecForm
+from .forms import StudForm, PrepodForm, SpecForm, GroupsForm
 
-from .models import Spisok_stud, Prepod, Specialnost
+from .models import Spisok_stud, Prepod, Specialnost, Groups
 # Create your views here.
 
 def main_page(request):
@@ -94,3 +94,32 @@ def spec_delete(request,id):
     spec=Specialnost.objects.get(pk=id)
     spec.delete()
     return redirect('/spec_list')
+
+
+
+def groups_list(request):
+    context = {'groups_list':Groups.objects.all()}
+    return render(request, "register/groups/groups_list.html", context)
+
+def groups_form(request,id=0):
+    if request.method == "GET":
+        if id==0:
+            form = GroupsForm()
+        else:
+            groups=Groups.objects.get(pk=id)
+            form = GroupsForm(instance=groups)
+        return render(request, "register/groups/groups_form.html", {'form':form})
+    else:
+        if id==0:
+            form = GroupsForm(request.POST)
+        else:
+            groups=Groups.objects.get(pk=id)
+            form = GroupsForm(request.POST,instance=groups)
+        if form.is_valid():
+            form.save()
+        return redirect('/groups_list')
+
+def groups_delete(request,id):
+    groups=Groups.objects.get(pk=id)
+    groups.delete()
+    return redirect('/groups_list')

@@ -9,6 +9,7 @@ class Specialnost(models.Model):
     abbreviatura = models.CharField(max_length=100)
     polnoe_nazv = models.CharField(max_length=100) #func?
 
+
 class Groups(models.Model):
     n_group = models.IntegerField()
     nazvanie = models.CharField(max_length=100)

@@ -16,24 +16,23 @@
         <div class="col-md-10 offset-md-1 mt-5">
             <div class="jumbotron ">
                 <h1 class="display-4 font-weight-bold">CRUD</h1>
-                <p class="lead">Для начала работы, выберите таблицу</p>
+                <p class="lead">Для початку роботи, оберіть таблицю.</p>
                 <hr class="my-4">
                 
 
                 <div class="d-grid gap-2  d-md-flex justify-content-md-center">
                 <ul class="nav nav-pills flex-column ">
                     <li class="nav-item "> 
-                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1"  href="{% url 'stud_list' %}" >Студент</a>
+                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1"  href="{% url 'stud_list' %}" >Студенти</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1"  href="{% url 'prepod_list' %}">Преподаватель</a>
+                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1"  href="{% url 'prepod_list' %}">Викладачі</a>
                     </li>
                     <li class="nav-item">
-                       <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1" href="{% url 'spec_list' %}">Спеціальності</a>
+                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1" href="{% url 'spec_list' %}">Спеціальності</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1"  href="#" tabindex="-1" aria-disabled="true">Отключен</a>
-                    </li>
+                      <a class="btn btn-primary btn-lg d-grid gap-2  d-md-flex justify-content-md-center m-1" href="{% url 'groups_list' %}">Групи</a>
                   </ul>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models.fields import DateField
-from .models import Spisok_stud, Prepod, Specialnost
+from .models import Spisok_stud, Prepod, Specialnost, Groups
 from django.conf import settings
 
 class StudForm(forms.ModelForm):
@@ -62,4 +62,17 @@ class SpecForm(forms.ModelForm):
         'n_specialnosty':'Номер спеціальності',
         'abbreviatura':'Абревіатура',
         'polnoe_nazv':'Повна назва',
+        }
+
+class GroupsForm(forms.ModelForm):
+    class Meta:
+        model = Groups
+        fields = ('n_group', 'nazvanie', 'n_specialnosty',
+        'kurs', 'forma')
+        labels={
+        'n_group':'Номер групи',
+        'nazvanie':'Назва групи',
+        'n_specialnosty':'Номер спеціальності',
+        'kurs':'Курс',
+        'forma':'Форма навчання',
         }

@@ -27,6 +27,8 @@ def stud_form(request, id=0):
             form = StudForm(request.POST,instance=stud)
         if form.is_valid():
             form.save()
+        else:
+            return render(request, "register/stud_form.html", {'form':form})
         return redirect('/stud_list')
 
 def stud_delete(request,id):

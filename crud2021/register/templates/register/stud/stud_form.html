@@ -1,0 +1,19 @@
+{% extends "register/stud/stud_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form action="" method="POST" autocomplete="off">
+    {% csrf_token %}
+    {{form|crispy}}
+    <div class="row">
+        <div class="col-md-8">
+           <button type="submit" class="btn btn-success btn-block btn-lg"><i class="far fa-plus-square"></i> Продовжити</button>     
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'stud_list' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-long-arrow-alt-left"></i> Назад</a>     
+         </div>
+    </div>
+
+</form>
+
+{% endblock content %}

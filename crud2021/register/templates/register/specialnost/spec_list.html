@@ -6,6 +6,7 @@
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
+            <td>Номер запису</td>
             <td>Номер спеціальності</td>
             <td>Абревіатура</td>
             <td>Повна назва</td>
@@ -15,6 +16,7 @@
     <tbody>
         {% for Specialnost in spec_list %}
         <tr>
+            <td>{{Specialnost.id}}</td>
             <td>{{Specialnost.n_specialnosty}}</td>
             <td>{{Specialnost.abbreviatura}}</td>
             <td>{{Specialnost.polnoe_nazv}}</td>

@@ -1,0 +1,39 @@
+{% extends "register/predmety/predmety_base.html" %}
+
+{% block content %}
+<div class="overflow-auto">
+<a class="btn btn-success" href="{% url 'predmety_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Номер запису</td>
+            <td>Назва предмету</td>
+            <td>Спеціальність</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Predmety in predmety_list %}
+        <tr>
+            <td>{{Predmety.id}}</td>
+            <td>{{Predmety.nazv_predmeta}}</td>
+            <td>{{Predmety.specialnost}}</td>
+            <td>
+            <a href="{% url 'predmety_form_id' Predmety.id %}" class="btn text-secondary px-0">
+                <i class="far fa-edit fa-lg"></i>
+            </a>
+            <form  action="{% url 'predmety_delete' Predmety.id %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                </button>
+            </form>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+            
+{% endblock content %}

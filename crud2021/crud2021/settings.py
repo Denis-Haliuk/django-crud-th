@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'crud2021.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crud20',
+        'NAME': 'crud21',
         'USER' : 'postgres',
         'PASSWORD' : '0000',
         'HOST' : 'localhost',
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk-ua'
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 

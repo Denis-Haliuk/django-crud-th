@@ -5,21 +5,24 @@ from datetime import date
 
 #удалить все n_... и вместо них выводить id из postgres
 class Specialnost(models.Model):
-    n_specialnosty = models.IntegerField()
-    abbreviatura = models.CharField(max_length=100)
+    abbreviatura = models.CharField(max_length=100, unique=True)
+    n_specialnosty = models.CharField(max_length=5)
     polnoe_nazv = models.CharField(max_length=100) #func?
 
+    def __str__(self):
+        return self.n_specialnosty
+   
 
 class Groups(models.Model):
-    n_group = models.IntegerField()
+    #n_group = models.IntegerField()
     nazvanie = models.CharField(max_length=100)
     n_specialnosty = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
     kurs = models.IntegerField()
-    day='дневная'
-    zaoch='заочная'
+    day='денна'
+    zaoch='заочна'
     FORM_CHOICES=[
-        (day,'дневная'),
-        (zaoch, 'заочная'),
+        (day,'денна'),
+        (zaoch, 'заочна'),
     ]
     forma = models.CharField(max_length=7, choices=FORM_CHOICES, default=day)
 
@@ -27,7 +30,7 @@ class Groups(models.Model):
         return self.nazvanie
 
 class Spisok_stud(models.Model):
-    n_stud = models.IntegerField()
+    #n_stud = models.IntegerField()
     familiya = models.CharField(max_length=100)
     imya = models.CharField(max_length=100)
     otchestvo = models.CharField(max_length=100)
@@ -54,13 +57,19 @@ class Spisok_stud(models.Model):
     pasport = models.CharField(max_length=100)
     id_stan = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.familiya
+
 class Predmety(models.Model):
-    n_predmeta = models.IntegerField()
+    #n_predmeta = models.IntegerField()
     nazv_predmeta = models.CharField(max_length=100)
     specialnost = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
+    
+    def __str__(self):
+        return self.nazv_predmeta
 
 class Prepod(models.Model):
-    n_prepod = models.IntegerField()
+    #n_prepod = models.IntegerField()
     familiya = models.CharField(max_length=100)
     imya = models.CharField(max_length=100)
     otchestvo = models.CharField(max_length=100)
@@ -74,9 +83,12 @@ class Prepod(models.Model):
     ]
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default=m)
 
+    def __str__(self):
+        return self.familiya
+
 class Itog(models.Model):
-    n_itoga = models.IntegerField()
-    n_stud = models.IntegerField()
-    n_predmeta = models.IntegerField()
-    n_prepod = models.IntegerField()
+   #n_itoga = models.IntegerField()
+    n_stud = models.ForeignKey(Spisok_stud, on_delete=models.CASCADE)
+    n_predmeta = models.ForeignKey(Predmety, on_delete=models.CASCADE)
+    n_prepod = models.ForeignKey(Prepod, on_delete=models.CASCADE)
     otsenka = models.IntegerField()

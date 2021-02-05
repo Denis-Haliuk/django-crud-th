@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Групи</title>
+    <title>Список студентів
+    </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
@@ -12,7 +13,9 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'main_page' %}">CRUD</a>
+      <a class="navbar-brand" href="{% url 'main_page' %}">
+        <i class="fab fa-python"></i>
+        CRUD</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -42,12 +45,11 @@
   </nav>
 
 
-
     
           <div class="jumbotron jumbotron-fluid ">
             <div class="container">
               
-                <h1 class="display-4 font-weight-bold ">Групи</h1>
+                <h1 class="display-4 font-weight-bold ">Список студентов</h1>
                 <p class="lead">CRUD</p>   
                 <hr class="my-4">
                   {% block content %}

@@ -6,7 +6,7 @@
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td>Номер групи</td>
+            <td>Номер запису</td>
             <td>Назва групи</td>
             <td>Номер спеціальності</td>
             <td>Курс</td>
@@ -17,7 +17,7 @@
     <tbody>
         {% for Groups in groups_list %}
         <tr>
-            <td>{{Groups.n_group}}</td>
+            <td>{{Groups.id}}</td>
             <td>{{Groups.nazvanie}}</td>
             <td>{{Groups.n_specialnosty}}</td>
             <td>{{Groups.kurs}}</td>

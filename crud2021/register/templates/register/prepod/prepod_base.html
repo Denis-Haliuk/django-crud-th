@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,15 +22,17 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Таблиці
+                Таблиці
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'itog_list' %}">Підсумки</a></li>
+            <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'stud_list' %}">Студенти</a></li>
                 <li><a class="dropdown-item" href="{% url 'prepod_list' %}">Викладачі</a></li>
-                <li><a class="dropdown-item" href="{% url 'spec_list' %}">Спеціальності</a></li>
                 <li><a class="dropdown-item" href="{% url 'groups_list' %}">Групи</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" href="{% url 'predmety_list' %}">Предмети</a></li>
+                <li><a class="dropdown-item" href="{% url 'spec_list' %}">Спеціальності</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -40,6 +42,7 @@
       </div>
     </div>
   </nav>
+
 
     
 
@@ -63,6 +66,8 @@ integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6ji
 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
 <script>
 var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
     var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {

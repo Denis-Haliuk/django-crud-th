@@ -1,0 +1,72 @@
+{% extends "register/stud/stud_base.html" %}
+
+{% block content %}
+<div class="overflow-auto">
+<a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Номер студента</td>
+            <td>Прізвище</td>
+            <td>Ім`я</td>
+            <td>По-батькові</td>
+            <td>Стать</td>
+            <td>ВПО</td>
+            <td>Сирота</td>
+            <td>Інвалід</td>
+            <td>АТО</td>
+            <td>Чорнобиль</td>
+            <td>Малозабезпечений</td>
+            <td>Бюджет</td>
+            <td>Дата народження</td>
+            <td>Місто</td>
+            <td>Вулиця</td>
+            <td>Номер телефону</td>
+            <td>Номер групи</td>
+            <td>ІПН</td>
+            <td>Паспорт</td>
+            <td>id_stan</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Spisok_stud in stud_list %}
+        <tr>
+            <td>{{Spisok_stud.id}}</td>
+            <td>{{Spisok_stud.familiya}}</td>
+            <td>{{Spisok_stud.imya}}</td>
+            <td>{{Spisok_stud.otchestvo}}</td>
+            <td>{{Spisok_stud.sex}}</td>
+            <td>{{Spisok_stud.vpo}}</td>
+            <td>{{Spisok_stud.sirota}}</td>
+            <td>{{Spisok_stud.invalid}}</td>
+            <td>{{Spisok_stud.ato}}</td>
+            <td>{{Spisok_stud.chernobil}}</td>
+            <td>{{Spisok_stud.maloobespech}}</td>
+            <td>{{Spisok_stud.budget}}</td>
+            <td>{{Spisok_stud.data_rozhdeniya}}</td>
+            <td>{{Spisok_stud.city}}</td>
+            <td>{{Spisok_stud.street}}</td>
+            <td>{{Spisok_stud.n_tel}}</td>
+            <td>{{Spisok_stud.n_group}}</td>
+            <td>{{Spisok_stud.inn}}</td>
+            <td>{{Spisok_stud.pasport}}</td>
+            <td>{{Spisok_stud.id_stan}}</td>
+            <td class="d-inline">
+                <a href="{% url 'stud_form_id' Spisok_stud.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form  action="{% url 'stud_delete' Spisok_stud.id %}" method="POST" class="d-inline" >
+                    {% csrf_token %}
+                    <button type="submit" class="btn ">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock content %}

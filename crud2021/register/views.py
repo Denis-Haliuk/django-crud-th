@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import StudForm, PrepodForm, SpecForm, GroupsForm
+from .forms import StudForm, PrepodForm, SpecForm, GroupsForm, PredmetyForm, ItogForm
 
-from .models import Spisok_stud, Prepod, Specialnost, Groups
+from .models import Spisok_stud, Prepod, Specialnost, Groups, Predmety, Itog
 # Create your views here.
 
 def main_page(request):
     return render(request, "register/main_page.html")
 
+
 def stud_list(request):
     context = {'stud_list':Spisok_stud.objects.all()}
-    return render(request, "register/stud_list.html", context)
+    return render(request, "register/stud/stud_list.html", context)
 
 def stud_form(request, id=0):
     if request.method == "GET":
@@ -18,7 +19,7 @@ def stud_form(request, id=0):
         else:
             stud= Spisok_stud.objects.get(pk=id)
             form = StudForm(instance=stud)
-        return render(request, "register/stud_form.html", {'form':form})
+        return render(request, "register/stud/stud_form.html", {'form':form})
     else:
         if id==0:  
             form = StudForm(request.POST)       
@@ -28,7 +29,7 @@ def stud_form(request, id=0):
         if form.is_valid():
             form.save()
         else:
-            return render(request, "register/stud_form.html", {'form':form})
+            return render(request, "register/stud/stud_form.html", {'form':form})
         return redirect('/stud_list')
 
 def stud_delete(request,id):
@@ -120,6 +121,62 @@ def groups_form(request,id=0):
         return redirect('/groups_list')
 
 def groups_delete(request,id):
+
     groups=Groups.objects.get(pk=id)
     groups.delete()
     return redirect('/groups_list')
+
+def predmety_list(request):
+    context = {'predmety_list':Predmety.objects.all()}
+    return render(request, "register/predmety/predmety_list.html", context)
+
+def predmety_form(request,id=0):
+    if request.method == "GET":
+        if id==0:
+            form = PredmetyForm()
+        else:
+            predmety=Predmety.objects.get(pk=id)
+            form = PredmetyForm(instance=predmety)
+        return render(request, "register/predmety/predmety_form.html", {'form':form})
+    else:
+        if id==0:
+            form = PredmetyForm(request.POST)
+        else:
+            predmety=Predmety.objects.get(pk=id)
+            form = PredmetyForm(request.POST,instance=predmety)
+        if form.is_valid():
+            form.save()
+        return redirect('/predmety_list')
+
+def predmety_delete(request,id):
+    predmety=Predmety.objects.get(pk=id)
+    predmety.delete()
+    return redirect('/predmety_list')
+
+
+def itog_list(request):
+    context = {'itog_list':Itog.objects.all()}
+    return render(request, "register/itog/itog_list.html", context)
+
+def itog_form(request,id=0):
+    if request.method == "GET":
+        if id==0:
+            form = ItogForm()
+        else:
+            itog=Itog.objects.get(pk=id)
+            form = ItogForm(instance=itog)
+        return render(request, "register/itog/itog_form.html", {'form':form})
+    else:
+        if id==0:
+            form = ItogForm(request.POST)
+        else:
+            itog=Itog.objects.get(pk=id)
+            form = ItogForm(request.POST,instance=itog)
+        if form.is_valid():
+            form.save()
+        return redirect('/itog_list')
+
+def itog_delete(request,id):
+    itog=Itog.objects.get(pk=id)
+    itog.delete()
+    return redirect('/itog_list')

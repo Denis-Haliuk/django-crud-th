@@ -22,5 +22,14 @@ urlpatterns = [
     path('groups_form/delete/<int:id>/', views.groups_delete, name='groups_delete'),   
     path('groups_list/', views.groups_list, name='groups_list'),
 
+    path('predmety_form/', views.predmety_form, name='predmety_form'),   
+    path('predmety_form/<int:id>/', views.predmety_form, name='predmety_form_id'),   
+    path('predmety_form/delete/<int:id>/', views.predmety_delete, name='predmety_delete'),   
+    path('predmety_list/', views.predmety_list, name='predmety_list'),
+
+    path('itog_form/', views.itog_form, name='itog_form'),   
+    path('itog_form/<int:id>/', views.itog_form, name='itog_form_id'),   
+    path('itog_form/delete/<int:id>/', views.itog_delete, name='itog_delete'),   
+    path('itog_list/', views.itog_list, name='itog_list'),
 
 ]

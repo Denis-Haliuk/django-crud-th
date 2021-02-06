@@ -1,4 +1,8 @@
-{% extends "register/stud/stud_base.html" %}
+{% extends "register/base.html" %}
+
+{% block name %}
+Студенти
+{% endblock name %}
 
 {% block content %}
 <div class="overflow-auto">
@@ -37,13 +41,13 @@
             <td>{{Spisok_stud.imya}}</td>
             <td>{{Spisok_stud.otchestvo}}</td>
             <td>{{Spisok_stud.sex}}</td>
-            <td>{{Spisok_stud.vpo|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.sirota|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.invalid|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.ato|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.chernobil|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.maloobespech|yesno:"+,-"}}</td>
-            <td>{{Spisok_stud.budget|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.vpo}}</td>
+            <td>{{Spisok_stud.sirota}}</td>
+            <td>{{Spisok_stud.invalid}}</td>
+            <td>{{Spisok_stud.ato}}</td>
+            <td>{{Spisok_stud.chernobil}}</td>
+            <td>{{Spisok_stud.maloobespech}}</td>
+            <td>{{Spisok_stud.budget}}</td>
             <td>{{Spisok_stud.data_rozhdeniya}}</td>
             <td>{{Spisok_stud.city}}</td>
             <td>{{Spisok_stud.street}}</td>

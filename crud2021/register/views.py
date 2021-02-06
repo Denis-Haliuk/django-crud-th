@@ -18,6 +18,7 @@ def stud_form(request, id=0):
             form = StudForm()
         else:
             stud= Spisok_stud.objects.get(pk=id)
+            stud.data_rozhdeniya = stud.data_rozhdeniya.strftime('%d-%m-%Y')
             form = StudForm(instance=stud)
         return render(request, "register/stud/stud_form.html", {'form':form})
     else:
@@ -25,6 +26,7 @@ def stud_form(request, id=0):
             form = StudForm(request.POST)       
         else:
             stud= Spisok_stud.objects.get(pk=id)
+            stud.data_rozhdeniya = stud.data_rozhdeniya.strftime('%d-%m-%Y')
             form = StudForm(request.POST,instance=stud)
         if form.is_valid():
             form.save()
@@ -50,6 +52,7 @@ def prepod_form(request,id=0):
             form = PrepodForm()
         else:
             prepod=Prepod.objects.get(pk=id)
+            prepod.data_rozhd = prepod.data_rozhd.strftime('%d-%m-%Y')
             form = PrepodForm(instance=prepod)
         return render(request, "register/prepod/prepod_form.html", {'form':form})
     else:
@@ -57,6 +60,7 @@ def prepod_form(request,id=0):
             form = PrepodForm(request.POST)
         else:
             prepod=Prepod.objects.get(pk=id)
+            prepod.data_rozhd = prepod.data_rozhd.strftime('%d-%m-%Y')
             form = PrepodForm(request.POST,instance=prepod)
         if form.is_valid():
             form.save()

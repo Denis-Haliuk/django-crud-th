@@ -40,7 +40,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <!--<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
           </li>
         </ul>
       </div>
@@ -104,12 +104,21 @@ $( function() {
 });
 </script>
 
-<script>
+<!--<script>
   var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
       var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
         return new bootstrap.Dropdown(dropdownToggleEl)
       })
-  </script>
+  </script>-->
+
+<script>
+jQuery('.dropdown-toggle').on('click', function (e) {
+  $(this).next().toggle();
+});
+jQuery('.dropdown-menu.keep-open').on('click', function (e) {
+  e.stopPropagation();
+});
+</script>
 
 </body>
 </html>

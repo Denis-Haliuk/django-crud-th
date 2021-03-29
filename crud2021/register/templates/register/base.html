@@ -71,6 +71,37 @@ integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07j
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
 <script>
   $("#phone").inputmask("+389999999999");
+  $("#datepicker").inputmask("99-99-9999");
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+  
+  $( "#datepicker" ).datepicker({
+    dateFormat:"dd-mm-yy",
+    closeText: 'Закрити',
+    prevText: 'Попередній',
+    nextText: 'Наступний',
+    currentText: 'Сьогодні',
+    
+	  monthNames : ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'],
+	  monthNamesShort: ['Січ','Лют','Бер','Квіт','Трав','Черв',
+                    'Лип','Січ','Вер','Жовт','Лист','Груд'],
+    dayNames: ['Неділя','Понелілок','Вівторок','Середа','Четвер','Пʼятниця','Субота'],
+    dayNamesShort: ['Ндл','Пнд','Втр','Срд','Чтв','Птн','Сбт'],
+    dayNamesMin : ['Нд','Пн','Вт','Ср','Чт','Пт','Сб'],
+    weekHeader: 'Тижд',
+    minDate: new Date(1980, 1 - 1, 1),
+    yearRange: "1980:2021",
+    changeMonth: true,
+    changeYear: true,
+    mask:true,
+  },);
+});
 </script>
 
 <script>

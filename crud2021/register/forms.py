@@ -8,8 +8,8 @@ class StudForm(forms.ModelForm):
     data_rozhdeniya = forms.DateField(
         input_formats=settings.DATE_INPUT_FORMATS, 
         label='Дата народження',
-        help_text='Приклад: 18-08-2000', 
-        widget=forms.TextInput(attrs={'data-mask':"00-00-0000", 'placeholder':"__-__-___",},)
+        help_text='Приклад: 18-08-2000',
+        widget=forms.TextInput(attrs={'input id':"datepicker", 'placeholder':"__-__-____"},)
         )
 
     n_tel = forms.CharField(label='Номер телефону', 
@@ -41,7 +41,7 @@ class StudForm(forms.ModelForm):
         'n_group':'Група',
         'inn':'ІПН',
         'pasport':'Паспорт',
-        #'id_stan':''
+        'id_stan':'Стан студента'
 
         }
 
@@ -50,7 +50,7 @@ class PrepodForm(forms.ModelForm):
             input_formats=settings.DATE_INPUT_FORMATS, 
             label='Дата народження',
             help_text='Приклад: 18-08-2000', 
-            widget=forms.TextInput(attrs={'data-mask':"00-00-0000", 'placeholder':"__-__-___",},)
+            widget=forms.TextInput(attrs={'input id':"datepicker", 'placeholder':"__-__-____"},)
             )                
     class Meta:
         model = Prepod

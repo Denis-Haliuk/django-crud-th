@@ -25,7 +25,7 @@ SECRET_KEY = '12=yj#43ie#@&i!#@@s21=eo=8rl0^7l#x)h8h+w)#n#28ac3b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'crud21',
-        'USER' : 'postgres',
+        'USER' : 'crud2021',
         'PASSWORD' : '0000',
         'HOST' : 'localhost',
     }
@@ -112,7 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'uk-ua'
 
-DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATE_FORMAT = '%d-%m-%Y'
+DATE_INPUT_FORMATS = ['%d-%m-%Y','%Y-%m-%d']
+DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%M:%S', '%d/%m/%Y')
 
 TIME_ZONE = 'UTC'
 

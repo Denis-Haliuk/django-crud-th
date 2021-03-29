@@ -18,11 +18,11 @@ class Groups(models.Model):
     nazvanie = models.CharField(max_length=100)
     n_specialnosty = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
     kurs = models.IntegerField()
-    day='денна'
-    zaoch='заочна'
+    day='Денна'
+    zaoch='Заочна'
     FORM_CHOICES=[
-        (day,'денна'),
-        (zaoch, 'заочна'),
+        (day,'Денна'),
+        (zaoch, 'Заочна'),
     ]
     forma = models.CharField(max_length=7, choices=FORM_CHOICES, default=day)
 
@@ -34,13 +34,13 @@ class Spisok_stud(models.Model):
     familiya = models.CharField(max_length=100)
     imya = models.CharField(max_length=100)
     otchestvo = models.CharField(max_length=100)
-    m='м'
-    f='ж'
+    m='Чол'
+    f='Жін'
     SEX_CHOICES=[
-        (m,'муж'),
-        (f, 'жен'),
+        (m,'Чол'),
+        (f, 'Жін'),
     ]
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default=m)
+    sex = models.CharField(max_length=3, choices=SEX_CHOICES, default=m)
     vpo = models.BooleanField()
     sirota = models.BooleanField()
     invalid = models.BooleanField()
@@ -55,7 +55,16 @@ class Spisok_stud(models.Model):
     n_group = models.ForeignKey(Groups, on_delete=models.CASCADE) #разобраться
     inn = models.CharField(max_length=100)
     pasport = models.CharField(max_length=100)
-    id_stan = models.CharField(max_length=100)
+    #id_stan = models.CharField(max_length=100)
+    n='Навчається'
+    v='Відраховано'
+    z='Завершив навчання'
+    STAN_CHOICES=[
+        (n,'Навчається'),
+        (v, 'Відраховано'),
+        (z, 'Завершив навчання'),
+    ]
+    id_stan = models.CharField(max_length=20, choices=STAN_CHOICES, default=n)
 
     def __str__(self):
         return self.familiya
@@ -75,13 +84,13 @@ class Prepod(models.Model):
     otchestvo = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     data_rozhd = models.DateField(default=date.today)
-    m='м'
-    f='ж'
+    m='Чол'
+    f='Жін'
     SEX_CHOICES=[
-        (m,'муж'),
-        (f, 'жен'),
+        (m,'Чол'),
+        (f, 'Жін'),
     ]
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default=m)
+    sex = models.CharField(max_length=3, choices=SEX_CHOICES, default=m)
 
     def __str__(self):
         return self.familiya

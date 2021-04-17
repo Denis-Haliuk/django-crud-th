@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import StudForm, PrepodForm, SpecForm, GroupsForm, PredmetyForm, ItogForm
 
 from .models import Spisok_stud, Prepod, Specialnost, Groups, Predmety, Itog
+import csv, io
+from django.http import HttpResponse
+from itertools import chain
+from django.contrib import messages
 # Create your views here.
 
 def main_page(request):
@@ -184,3 +188,246 @@ def itog_delete(request,id):
     itog=Itog.objects.get(pk=id)
     itog.delete()
     return redirect('/itog_list')
+
+def spec_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Абревіатура','Номер спеціальності', 'Повна назва'])
+    records = Specialnost.objects.all().values_list('abbreviatura','n_specialnosty', 'polnoe_nazv')
+    for record in records:
+        writer.writerow(record)
+    response['Content-Disposition'] = 'attachment; filename="db_spec.csv"' # your filename
+    return response
+
+def upload(request):
+    return render(request, "register/upload.html")
+
+def spec_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: abbreviatura, n_specialnosty, polnoe_nazv'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Specialnost.objects.update_or_create(
+                    abbreviatura=column[0],
+                    n_specialnosty=column[1],
+                    polnoe_nazv=column[2]
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)
+
+def groups_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Назва групи','Номер спеціальності', 'Курс', 'Форма навчання'])
+    records = Groups.objects.all().values_list('nazvanie','n_specialnosty', 'kurs', 'forma')
+    for record in records:
+        writer.writerow(record)
+    response['Content-Disposition'] = 'attachment; filename="db_groups.csv"' # your filename
+    return response
+
+def groups_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: nazvanie, n_specialnosty, kurs, forma'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Groups.objects.update_or_create(
+                    nazvanie=column[0],
+                    n_specialnosty=Specialnost.objects.get(id=int(column[1])),
+                    kurs=column[2],
+                    forma=column[3]
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)
+ 
+def stud_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Прізвище','Імʼя', 'По-батькові', 'Стать', 'ВПО', 'Сирота', 'Інвалід', 'АТО', 'Чорнобиль', 'Малозабезпечений', 'Бюджет', 'Дата народження', 'Місто', 'Вулиця', 'Номер телефону', 'Номер групи', 'ІПН', 'Паспорт', 'Стан студента'])
+    records = Spisok_stud.objects.all().values_list('familiya','imya', 'otchestvo', 'sex', 'vpo', 'sirota', 'invalid', 'ato', 'chernobil', 'maloobespech', 'budget', 'data_rozhdeniya', 'city', 'street', 'n_tel', 'n_group', 'inn', 'pasport', 'id_stan')
+ 
+    for record in records:
+        writer.writerow(record)
+
+    response['Content-Disposition'] = 'attachment; filename="db_stud.csv"' # your filename
+    return response
+
+def stud_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: abbreviatura, familiya, imya, otchestvo, sex, vpo, sirota, invalid, ato, chernobil, maloobespech, budget, data_rozhdeniya, city, street, n_tel, n_group, inn, pasport, id_stan'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Spisok_stud.objects.update_or_create(
+                    familiya=column[0],
+                    imya=column[1],
+                    otchestvo=column[2],
+                    sex=column[3],
+                    vpo=column[4],
+                    sirota=column[5],
+                    invalid=column[6],
+                    ato=column[7],
+                    chernobil=column[8],
+                    maloobespech=column[9],
+                    budget=column[10],
+                    data_rozhdeniya=column[11],
+                    city=column[12],
+                    street=column[13],
+                    n_tel=column[14],
+                    n_group=Groups.objects.get(id=int(column[15])),
+                    inn=column[16],
+                    pasport=column[17],
+                    id_stan=column[18]
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)
+
+def prepod_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Прізвище','Імʼя', 'По-батькові', 'Категорія', 'Дата народження', 'Стать'])
+    records = Prepod.objects.all().values_list('familiya','imya', 'otchestvo', 'category', 'data_rozhd', 'sex')
+    for record in records:
+        writer.writerow(record)
+    response['Content-Disposition'] = 'attachment; filename="db_prepod.csv"' # your filename
+    return response
+
+def prepod_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: familiya, imya, otchestvo, category, data_rozhd, sex'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Prepod.objects.update_or_create(
+                    familiya=column[0],
+                    imya=column[1],
+                    otchestvo=column[2],
+                    category=column[3],
+                    data_rozhd=column[4],
+                    sex=column[5]
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)
+
+def predmety_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Назва предмету', 'Спеціальність'])
+    records = Predmety.objects.all().values_list('nazv_predmeta','specialnost')
+    for record in records:
+        writer.writerow(record)
+    response['Content-Disposition'] = 'attachment; filename="db_predmety.csv"' # your filename
+    return response
+
+def predmety_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: nazv_predmeta, specialnost'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Predmety.objects.update_or_create(
+                    nazv_predmeta=column[0],
+                    specialnost=Specialnost.objects.get(id=int(column[1]))
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)
+
+def itog_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Студент','Предмет', 'Викладач', 'Оцінка'])
+    records = Itog.objects.all().values_list('n_stud','n_predmeta', 'n_prepod', 'otsenka')
+    for record in records:
+        writer.writerow(record)
+    response['Content-Disposition'] = 'attachment; filename="db_itog.csv"' # your filename
+    return response
+
+def itog_upload(request):
+    template = "register/upload.html"
+    prompt = {
+        'order': 'Порядок даних у файлі CSV: n_stud, n_predmeta, n_prepod, otsenka'
+    }
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Це не csv-файл')
+    else:
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        try:
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                _, created = Itog.objects.update_or_create(
+                    n_stud=Spisok_stud.objects.get(id=int(column[0])),
+                    n_predmeta=Predmety.objects.get(id=int(column[1])),
+                    n_prepod=Prepod.objects.get(id=int(column[2])),
+                    otsenka=column[3]
+                )
+        except:
+            messages.error(request, 'Перевірте коректність заповнених даних')
+    context = {}
+    return render(request, template, context)

@@ -70,12 +70,12 @@ class Spisok_stud(models.Model):
         return self.familiya
 
 class Predmety(models.Model):
-    #n_predmeta = models.IntegerField()
     nazv_predmeta = models.CharField(max_length=100)
     specialnost = models.ForeignKey(Specialnost, on_delete=models.CASCADE) #разобраться
     
     def __str__(self):
-        return self.nazv_predmeta
+        return "%s %s" % (self.nazv_predmeta, self.specialnost)
+
 
 class Prepod(models.Model):
     #n_prepod = models.IntegerField()

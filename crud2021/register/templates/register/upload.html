@@ -1,0 +1,18 @@
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            <strong>{{message|safe}}</strong>
+            <button onclick="window.location.href='..'">На головну</button>
+        </div>
+    {% endfor %}
+{% else %}
+{{order}}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Завантажити файл</label>
+    <input type="file" name="file">
+    <p>Приймаються тільки файли у форматі CSV</p>
+    <button type = "submit">Завантажити</button>
+</form>
+<button onclick="window.location.href='..'">На головну</button>
+{% endif %}

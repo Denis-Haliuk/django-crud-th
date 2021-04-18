@@ -205,7 +205,7 @@ def upload(request):
 def spec_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: abbreviatura, n_specialnosty, polnoe_nazv'
+        'order': 'Порядок даних у файлі CSV: Абревіатура, Номер спеціальності, Повна назва'
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -241,7 +241,7 @@ def groups_csv(request):
 def groups_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: nazvanie, n_specialnosty, kurs, forma'
+        'order': 'Порядок даних у файлі CSV: Назва групи, Номер спеціальності, Курс, Форма навчання'
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -280,13 +280,14 @@ def stud_csv(request):
 def stud_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: abbreviatura, familiya, imya, otchestvo, sex, vpo, sirota, invalid, ato, chernobil, maloobespech, budget, data_rozhdeniya, city, street, n_tel, n_group, inn, pasport, id_stan'
+        'order': 'Порядок даних у файлі CSV: Прізвище, Імʼя, По-батькові, Стать, ВПO, Сирота, Інвалід, АТО, Чорнобиль, Малозабезпечений, Бюджет, Дата народження, Місто, Вулиця, Номер телефону, Номер групи, ІПН, Паспорт, Стан студента'
     }
     if request.method == "GET":
         return render(request, template, prompt)
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         messages.error(request, 'Це не csv-файл')
+        
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -332,7 +333,7 @@ def prepod_csv(request):
 def prepod_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: familiya, imya, otchestvo, category, data_rozhd, sex'
+        'order': 'Порядок даних у файлі CSV: Прізвище, Імʼя, По-батькові, Категорія, Дата народження, Стать'
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -371,7 +372,7 @@ def predmety_csv(request):
 def predmety_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: nazv_predmeta, specialnost'
+        'order': 'Порядок даних у файлі CSV: Назва предмету, Спеціальність'
     }
     if request.method == "GET":
         return render(request, template, prompt)
@@ -406,7 +407,7 @@ def itog_csv(request):
 def itog_upload(request):
     template = "register/upload.html"
     prompt = {
-        'order': 'Порядок даних у файлі CSV: n_stud, n_predmeta, n_prepod, otsenka'
+        'order': 'Порядок даних у файлі CSV: Студент, Предмет, Викладач, Оцінка'
     }
     if request.method == "GET":
         return render(request, template, prompt)

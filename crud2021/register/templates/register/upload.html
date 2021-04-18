@@ -1,18 +1,36 @@
+{% extends "register/base.html" %}
+
+{% block content %}
 {% if messages %}
     {% for message in messages %}
         <div>
             <strong>{{message|safe}}</strong>
-            <button onclick="window.location.href='..'">На головну</button>
+            <br>
+            <button class="btn btn-primary" onclick="window.location.href='..'">Назад</button>
         </div>
     {% endfor %}
 {% else %}
-{{order}}
+
+<p class="lead">{{order}}</p>
+
+
+
 <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Завантажити файл</label>
-    <input type="file" name="file">
-    <p>Приймаються тільки файли у форматі CSV</p>
-    <button type = "submit">Завантажити</button>
+   {% csrf_token %}
+    <div class="form-group">
+    
+    <label for="exampleFormControlFile1">Завантажити файл:</label>
+    
+    <p>
+        <input type="file"  class="form-control-file" id="exampleFormControlFile1" name="file">
+        <small  class="form-text text-muted">Приймаються тільки файли у форматі CSV</small><br>
+        <input type="submit" class="btn btn-success btn-block"  id="exampleFormControlFile1" value="Завантажити">
+    </p>
+    
+    </div>
+    
 </form>
-<button onclick="window.location.href='..'">На головну</button>
+<br>
+<button class="btn btn-primary" onclick="window.location.href='..'"><i class="fas fa-home"></i> Назад</button>
 {% endif %}
+{% endblock content %}

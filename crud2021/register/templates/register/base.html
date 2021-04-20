@@ -58,7 +58,6 @@
               </div>
             </div>
           </div>
-      
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -105,11 +104,68 @@ $( function() {
 </script>
 
 <!--<script>
-  var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-      var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-        return new bootstrap.Dropdown(dropdownToggleEl)
-      })
-  </script>-->
+  $('a[name="write"]').click(function () {
+    history.pushState({}, null, "{% url 'stud_upload' %}");
+    });
+</script>-->
+
+<script>
+  $('a[name="write_stud"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'stud_upload' %}";
+    });
+  $('a[name="write_gr"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'groups_upload' %}";
+    });
+  $('a[name="write_prepod"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'prepod_upload' %}";
+    });
+  $('a[name="write_pred"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'predmety_upload' %}";
+    });
+  $('a[name="write_spec"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'spec_upload' %}";
+    });
+  $('a[name="write_itog"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'itog_upload' %}";
+    });
+</script>
+
+<!--<script>
+  $('a[name="write_gr"]').click(function () {
+    document.getElementById("FormID").action = "{% url 'groups_upload' %}";
+    });
+</script>-->
+
+<script>
+  function upload(event) {
+    event.preventDefault();
+    var data = new FormData($('form').get(0));
+
+    $.ajax({
+      url: $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: data,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        if(data.err_code == '1'){
+          alert(data.err_message);
+        }
+        else{
+          alert("Успіх!");
+          location.href = ".";
+        }
+      }
+  });
+return false;
+}
+
+$(function() {
+    $("#FormID").submit(upload);
+});
+
+</script>
 
 <script>
 jQuery('.dropdown-toggle').on('click', function (e) {

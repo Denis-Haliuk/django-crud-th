@@ -7,8 +7,9 @@
 {% block content %}
 <div class="overflow-auto">
 <a class="btn btn-success" href="{% url 'spec_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
-<a class="btn btn-success" href="{% url 'spec_csv' %}" > Експорт бази даних</a>
-<a class="btn btn-success" href="{% url 'spec_upload' %}" > Імпорт бази даних</a>
+<a class="btn btn-success" href="{% url 'spec_csv' %}" > Експорт таблиці</a>
+<a name = "write_spec" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"> Імпорт таблиці</a>
+  {% include "register/modal.html" %}
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>

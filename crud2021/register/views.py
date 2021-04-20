@@ -6,6 +6,7 @@ import csv, io
 from django.http import HttpResponse
 from itertools import chain
 from django.contrib import messages
+from django.http import JsonResponse
 # Create your views here.
 
 def main_page(request):
@@ -199,19 +200,17 @@ def spec_csv(request):
     response['Content-Disposition'] = 'attachment; filename="db_spec.csv"' # your filename
     return response
 
-def upload(request):
-    return render(request, "register/upload.html")
+def modal(request):
+    return render(request, "register/modal.html")    
 
 def spec_upload(request):
-    template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Абревіатура, Номер спеціальності, Повна назва'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
+    template = "register/specialnost/spec_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        }) 
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -224,7 +223,10 @@ def spec_upload(request):
                     polnoe_nazv=column[2]
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)
 
@@ -239,15 +241,13 @@ def groups_csv(request):
     return response
 
 def groups_upload(request):
-    template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Назва групи, Номер спеціальності, Курс, Форма навчання'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
+    template = "register/groups/groups_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        })  
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -261,7 +261,10 @@ def groups_upload(request):
                     forma=column[3]
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)
  
@@ -278,16 +281,13 @@ def stud_csv(request):
     return response
 
 def stud_upload(request):
-    template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Прізвище, Імʼя, По-батькові, Стать, ВПO, Сирота, Інвалід, АТО, Чорнобиль, Малозабезпечений, Бюджет, Дата народження, Місто, Вулиця, Номер телефону, Номер групи, ІПН, Паспорт, Стан студента'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
+    template = "register/stud/stud_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
-        
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        })       
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -316,7 +316,10 @@ def stud_upload(request):
                     id_stan=column[18]
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)
 
@@ -331,15 +334,13 @@ def prepod_csv(request):
     return response
 
 def prepod_upload(request):
-    template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Прізвище, Імʼя, По-батькові, Категорія, Дата народження, Стать'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
+    template = "register/prepod/prepod_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        })   
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -355,7 +356,10 @@ def prepod_upload(request):
                     sex=column[5]
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)
 
@@ -370,15 +374,13 @@ def predmety_csv(request):
     return response
 
 def predmety_upload(request):
-    template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Назва предмету, Спеціальність'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
+    template = "register/predmety/predmety_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        }) 
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -390,7 +392,10 @@ def predmety_upload(request):
                     specialnost=Specialnost.objects.get(id=int(column[1]))
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)
 
@@ -406,16 +411,12 @@ def itog_csv(request):
 
 def itog_upload(request):
     template = "register/upload.html"
-    prompt = {
-        'order': 'Порядок даних у файлі CSV: Студент, Предмет, Викладач, Оцінка'
-    }
-    if request.method == "GET":
-        return render(request, template, prompt)
-
     csv_file = request.FILES['file']
-
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'Це не csv-файл')
+        return JsonResponse({
+            'err_code': '1',
+            'err_message': 'Це не csv-файл' 
+        }) 
     else:
         data_set = csv_file.read().decode('UTF-8')
         io_string = io.StringIO(data_set)
@@ -429,6 +430,9 @@ def itog_upload(request):
                     otsenka=column[3]
                 )
         except:
-            messages.error(request, 'Перевірте коректність заповнених даних')
+            return JsonResponse({
+                'err_code': '1',
+                'err_message': 'Перевірте коректність заповнених даних' 
+                })
     context = {}
     return render(request, template, context)

@@ -103,12 +103,6 @@ $( function() {
 });
 </script>
 
-<!--<script>
-  $('a[name="write"]').click(function () {
-    history.pushState({}, null, "{% url 'stud_upload' %}");
-    });
-</script>-->
-
 <script>
   $('a[name="write_stud"]').click(function () {
     document.getElementById("FormID").action = "{% url 'stud_upload' %}";
@@ -130,12 +124,6 @@ $( function() {
     });
 </script>
 
-<!--<script>
-  $('a[name="write_gr"]').click(function () {
-    document.getElementById("FormID").action = "{% url 'groups_upload' %}";
-    });
-</script>-->
-
 <script>
   function upload(event) {
     event.preventDefault();
@@ -149,7 +137,7 @@ $( function() {
       processData: false,
       contentType: false,
       success: function(data) {
-        if(data.err_code == '1'){
+        if(data.err_code == 1){
           alert(data.err_message);
         }
         else{

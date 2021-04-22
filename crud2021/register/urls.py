@@ -8,7 +8,6 @@ urlpatterns = [
     path('stud_list/', views.stud_list, name='stud_list'),
     path('stud_csv/', views.stud_csv, name='stud_csv'),
     path('stud_upload', views.stud_upload, name='stud_upload'),
-    #path('stud_list/stud_upload/', views.stud_upload, name='stud_upload'),
     
     path('prepod_form/', views.prepod_form, name='prepod_form'),   
     path('prepod_form/<int:id>/', views.prepod_form, name='prepod_form_id'),   

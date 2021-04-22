@@ -208,7 +208,7 @@ def spec_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         }) 
     else:
@@ -224,7 +224,7 @@ def spec_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}
@@ -245,7 +245,7 @@ def groups_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         })  
     else:
@@ -262,7 +262,7 @@ def groups_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}
@@ -285,7 +285,7 @@ def stud_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         })       
     else:
@@ -317,7 +317,7 @@ def stud_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}
@@ -338,7 +338,7 @@ def prepod_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         })   
     else:
@@ -357,7 +357,7 @@ def prepod_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}
@@ -378,7 +378,7 @@ def predmety_upload(request):
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         }) 
     else:
@@ -393,7 +393,7 @@ def predmety_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}
@@ -410,11 +410,11 @@ def itog_csv(request):
     return response
 
 def itog_upload(request):
-    template = "register/upload.html"
+    template = "register/itog/itog_list.html"
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
         return JsonResponse({
-            'err_code': '1',
+            'err_code': 1,
             'err_message': 'Це не csv-файл' 
         }) 
     else:
@@ -431,7 +431,7 @@ def itog_upload(request):
                 )
         except:
             return JsonResponse({
-                'err_code': '1',
+                'err_code': 1,
                 'err_message': 'Перевірте коректність заповнених даних' 
                 })
     context = {}

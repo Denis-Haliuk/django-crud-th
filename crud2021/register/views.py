@@ -190,9 +190,12 @@ def itog_delete(request,id):
     itog.delete()
     return redirect('/itog_list')
 
+
+
+
 def spec_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Абревіатура','Номер спеціальності', 'Повна назва'])
     records = Specialnost.objects.all().values_list('abbreviatura','n_specialnosty', 'polnoe_nazv')
     for record in records:
@@ -216,7 +219,7 @@ def spec_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Specialnost.objects.update_or_create(
                     abbreviatura=column[0],
                     n_specialnosty=column[1],
@@ -232,7 +235,7 @@ def spec_upload(request):
 
 def groups_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Назва групи','Номер спеціальності', 'Курс', 'Форма навчання'])
     records = Groups.objects.all().values_list('nazvanie','n_specialnosty', 'kurs', 'forma')
     for record in records:
@@ -253,7 +256,7 @@ def groups_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Groups.objects.update_or_create(
                     nazvanie=column[0],
                     n_specialnosty=Specialnost.objects.get(id=int(column[1])),
@@ -270,7 +273,7 @@ def groups_upload(request):
  
 def stud_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Прізвище','Імʼя', 'По-батькові', 'Стать', 'ВПО', 'Сирота', 'Інвалід', 'АТО', 'Чорнобиль', 'Малозабезпечений', 'Бюджет', 'Дата народження', 'Місто', 'Вулиця', 'Номер телефону', 'Номер групи', 'ІПН', 'Паспорт', 'Стан студента'])
     records = Spisok_stud.objects.all().values_list('familiya','imya', 'otchestvo', 'sex', 'vpo', 'sirota', 'invalid', 'ato', 'chernobil', 'maloobespech', 'budget', 'data_rozhdeniya', 'city', 'street', 'n_tel', 'n_group', 'inn', 'pasport', 'id_stan')
  
@@ -293,7 +296,7 @@ def stud_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Spisok_stud.objects.update_or_create(
                     familiya=column[0],
                     imya=column[1],
@@ -325,7 +328,7 @@ def stud_upload(request):
 
 def prepod_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Прізвище','Імʼя', 'По-батькові', 'Категорія', 'Дата народження', 'Стать'])
     records = Prepod.objects.all().values_list('familiya','imya', 'otchestvo', 'category', 'data_rozhd', 'sex')
     for record in records:
@@ -346,7 +349,7 @@ def prepod_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Prepod.objects.update_or_create(
                     familiya=column[0],
                     imya=column[1],
@@ -365,7 +368,7 @@ def prepod_upload(request):
 
 def predmety_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Назва предмету', 'Спеціальність'])
     records = Predmety.objects.all().values_list('nazv_predmeta','specialnost')
     for record in records:
@@ -386,7 +389,7 @@ def predmety_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Predmety.objects.update_or_create(
                     nazv_predmeta=column[0],
                     specialnost=Specialnost.objects.get(id=int(column[1]))
@@ -401,7 +404,7 @@ def predmety_upload(request):
 
 def itog_csv(request):
     response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
+    writer = csv.writer(response,delimiter=';')
     writer.writerow(['Студент','Предмет', 'Викладач', 'Оцінка'])
     records = Itog.objects.all().values_list('n_stud','n_predmeta', 'n_prepod', 'otsenka')
     for record in records:
@@ -422,7 +425,7 @@ def itog_upload(request):
         io_string = io.StringIO(data_set)
         next(io_string)
         try:
-            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Itog.objects.update_or_create(
                     n_stud=Spisok_stud.objects.get(id=int(column[0])),
                     n_predmeta=Predmety.objects.get(id=int(column[1])),

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD</title>
+    <title>АІС "ДФК ДДМА"</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
@@ -16,28 +16,28 @@
   <div class="container">
         <div class="col-md-10  mt-5">
             <div class="jumbotron ">
-                <h1 class="display-4 font-weight-bold">CRUD</h1>
+                <h1 class="display-6 font-weight-bold ">АІС "Дружківський фаховий коледж"</h1>
                 <p class="lead">Для початку роботи, оберіть таблицю.</p>
                 <hr class="my-4">
                 <div class="d-grid gap-2  d-md-flex justify-content-md-center">
                 <ul class="nav nav-pills flex-column ">
                     <li class="nav-item "> 
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block"  href="{% url 'stud_list' %}" >Студенти</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'stud_list' %}" >Студенти</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block"  href="{% url 'prepod_list' %}">Викладачі</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'prepod_list' %}">Викладачі</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block" href="{% url 'predmety_list' %}">Предмети</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'predmety_list' %}">Предмети</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block" href="{% url 'spec_list' %}">Спеціальності</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'spec_list' %}">Спеціальності</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block" href="{% url 'groups_list' %}">Групи</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'groups_list' %}">Групи</a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-info btn-lg btn-lg btn-block" href="{% url 'itog_list' %}">Підсумки</a>
+                      <a class="btn btn-outline-info btn-lg btn-lg btn-block mb-2" href="{% url 'itog_list' %}">Підсумки</a>
                     </li>
                   </ul>
                 </div>

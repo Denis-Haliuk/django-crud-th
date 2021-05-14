@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import StudForm, PrepodForm, SpecForm, GroupsForm, PredmetyForm, ItogForm
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
 from .models import Spisok_stud, Prepod, Specialnost, Groups, Predmety, Itog
 import csv, io
 from django.http import HttpResponse
@@ -14,8 +14,18 @@ def main_page(request):
 
 
 def stud_list(request):
-    context = {'stud_list':Spisok_stud.objects.all()}
-    return render(request, "register/stud/stud_list.html", context)
+    #context = {'stud_list':Spisok_stud.objects.all()}
+    #return render(request, "register/stud/stud_list.html", context)
+
+    object_list = Spisok_stud.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/stud/stud_list.html", {'stud_list': page_obj})
+
+
 
 def stud_form(request, id=0):
     if request.method == "GET":
@@ -48,8 +58,18 @@ def stud_delete(request,id):
 
 
 def prepod_list(request):
-    context = {'prepod_list':Prepod.objects.all()}
-    return render(request, "register/prepod/prepod_list.html", context)
+    #context = {'prepod_list':Prepod.objects.all()}
+    #return render(request, "register/prepod/prepod_list.html", context)
+
+    object_list = Prepod.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/prepod/prepod_list.html", {'prepod_list': page_obj})
+
+
 
 def prepod_form(request,id=0):
     if request.method == "GET":
@@ -79,8 +99,16 @@ def prepod_delete(request,id):
 
 
 def spec_list(request):
-    context = {'spec_list':Specialnost.objects.all()}
-    return render(request, "register/specialnost/spec_list.html", context)
+    #context = {'spec_list':Specialnost.objects.all()}
+    #return render(request, "register/specialnost/spec_list.html", context)
+
+    object_list = Specialnost.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/specialnost/spec_list.html", {'spec_list': page_obj})
 
 def spec_form(request,id=0):
     if request.method == "GET":
@@ -108,8 +136,16 @@ def spec_delete(request,id):
 
 
 def groups_list(request):
-    context = {'groups_list':Groups.objects.all()}
-    return render(request, "register/groups/groups_list.html", context)
+   # context = {'groups_list':Groups.objects.all()}
+    #return render(request, "register/groups/groups_list.html", context)
+
+    object_list = Groups.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/groups/groups_list.html", {'groups_list': page_obj})
 
 def groups_form(request,id=0):
     if request.method == "GET":
@@ -136,8 +172,16 @@ def groups_delete(request,id):
     return redirect('/groups_list')
 
 def predmety_list(request):
-    context = {'predmety_list':Predmety.objects.all()}
-    return render(request, "register/predmety/predmety_list.html", context)
+    #context = {'predmety_list':Predmety.objects.all()}
+    #return render(request, "register/predmety/predmety_list.html", context)
+
+    object_list = Predmety.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/predmety/predmety_list.html", {'predmety_list': page_obj})
 
 def predmety_form(request,id=0):
     if request.method == "GET":
@@ -164,8 +208,16 @@ def predmety_delete(request,id):
 
 
 def itog_list(request):
-    context = {'itog_list':Itog.objects.all()}
-    return render(request, "register/itog/itog_list.html", context)
+    #context = {'itog_list':Itog.objects.all()}
+    #return render(request, "register/itog/itog_list.html", context)
+
+    object_list = Itog.objects.all()  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/itog/itog_list.html", {'itog_list': page_obj})
 
 def itog_form(request,id=0):
     if request.method == "GET":

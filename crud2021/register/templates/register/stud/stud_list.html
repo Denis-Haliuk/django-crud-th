@@ -5,12 +5,13 @@
 {% endblock name %}
 
 {% block content %}
-<div class="overflow-auto">
 <a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
-<a class="btn btn-success" href="{% url 'stud_csv' %}" > Експорт таблиці</a>
-<a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"> Імпорт таблиці</a>
+<a class="btn btn-success" href="{% url 'stud_csv' %}" ><i class="fas fa-long-arrow-alt-down"></i> Експорт таблиці</a>
+<a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
   {% include "register/modal.html" %}
-<table class="table table-borderless">
+<div class="overflow-auto">
+
+<table class="table ">
     <thead class="border-bottom font-weight-bold">
         <tr>
             <td>Номер студента</td>
@@ -71,9 +72,44 @@
                 </form>
             </td>
         </tr>
-        
         {% endfor %}
+        
+        
     </tbody>
+    
 </table>
+<!--
+<div class="pagination">
+    <span class="step-links">
+        {% if stud_list.has_previous %}
+        <ul class="pagination">
+            <li class="page-item">
+        <a class="page-link" aria-label="first" href="?page=1">&laquo; first</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href= "?page={{ stud_list.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true"> Previous</span>
+              </a></li>
+        
+        {% endif %}
+
+        <span class="current">
+            Page {{ stud_list.number }} of {{ stud_list.paginator.num_pages }}.
+        </span>
+
+        {% if stud_list.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ stud_list.next_page_number }}">next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ stud_list.paginator.num_pages }}">last &raquo;</a></li>
+        {% endif %}
+        </ul>
+    </span>
 </div>
+-->
+
+
+
+
+
+</div>
+{% include "../pagination.html" with page=stud_list %} 
 {% endblock content %}

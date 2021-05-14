@@ -5,11 +5,12 @@
 {% endblock name %}
 
 {% block content %}
-<div class="overflow-auto">
 <a class="btn btn-success" href="{% url 'predmety_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
-<a class="btn btn-success" href="{% url 'predmety_csv' %}" > Експорт таблиці</a>
-<a name = "write_pred" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"> Імпорт таблиці</a>
+<a class="btn btn-success" href="{% url 'predmety_csv' %}" > <i class="fas fa-long-arrow-alt-down"></i> Експорт таблиці</a>
+<a name = "write_pred" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
   {% include "register/modal.html" %}
+<div class="overflow-auto">
+
 <table class="table table-borderless">
     <thead class="border-bottom font-weight-bold">
         <tr>
@@ -42,5 +43,5 @@
     </tbody>
 </table>
 </div>
-            
+{% include "../pagination.html" with page=predmety_list %} 
 {% endblock content %}

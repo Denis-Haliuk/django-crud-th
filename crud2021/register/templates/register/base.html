@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD
+    <title>АІС "ДФК ДДМА"
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,7 +21,7 @@
 
       <a class="navbar-brand" href="{% url 'main_page' %}">
         <i class="fab fa-python"></i>
-        CRUD</a>
+        АІС "ДФК ДДМА"</a>
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
         
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                           <li class="nav-item dropdown">          
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Таблиці
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,14 +52,16 @@
     
   </nav>
   
-          <div class="jumbotron jumbotron-fluid ">
-            <div class="container">
+          <div class="jumbotron  ">
+            <div class="container ">
               
                 <h1 class="display-4 font-weight-bold ">{% block name %}{% endblock name %}</h1>
-                <p class="lead">CRUD</p>   
+                <p class="lead">Оберіть запис для подальшої роботи</p>   
                 <hr class="my-4">
+                
                   {% block content %}
                   {% endblock content %}
+                
               </div>
             </div>
           </div>

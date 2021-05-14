@@ -5,10 +5,14 @@
 {% endblock name %}
 
 {% block content %}
-<a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
-<a class="btn btn-success" href="{% url 'stud_csv' %}" ><i class="fas fa-long-arrow-alt-down"></i> Експорт таблиці</a>
-<a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
-  {% include "register/modal.html" %}
+<div class=" justify-content-left p-2 mb-4" role="toolbar" aria-label="Toolbar with button groups">
+    <a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
+    <a class="btn btn-success" href="{% url 'stud_csv' %}" ><i class="fas fa-long-arrow-alt-down " ></i> Експорт таблиці</a>
+    <a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
+      {% include "register/modal.html" %}
+    </div>
+
+
 <div class="overflow-auto">
 
 <table class="table ">

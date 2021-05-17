@@ -1,6 +1,25 @@
+
+
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
-        {% if page.has_previous %}
+       {% if page.has_previous %}
+       
+        
+          {% if data in request.get_full_path %}
+
+       
+        <li class="page-item ">
+          <a class="page-link" href="?{{ request.get_full_path}}&page=1" >На початок</a>
+        </li>
+         <li class="page-item ">
+      <a class="page-link" href="?{{ request.get_full_path}}&page={{ page.previous_page_number }}" >&laquo;</a>
+    </li>
+        <li class="page-item">
+          <a class="page-link" href="?{{ request.get_full_path }}&page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a>
+        </li>
+        {% else %}
+        
+        
         <li class="page-item ">
             <a class="page-link" href="?page=1" >На початок</a>
           </li>
@@ -10,13 +29,28 @@
           <li class="page-item">
             <a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a>
           </li>
-     
+          {% endif %}
+          
       {% endif %}
       
       <li class="page-item active" aria-current="page">
         <a class="page-link" href="#">{{ page.number }}  <span class="sr-only">(current)</span></a>
-      </li>
+      </li> 
       {% if page.has_next %}
+      
+      {% if 'stud_data' in request.get_full_path %}
+   
+      <li class="page-item">
+        <a class="page-link" href="?{{ request.get_full_path}}&page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?{{ request.get_full_path }}&page={{ page.next_page_number }}">&raquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?{{ request.get_full_path}}&page={{ page.paginator.num_pages }}">У кінець</a>
+      </li>
+      {% else %}
+     
       <li class="page-item">
         <a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
       </li>
@@ -26,6 +60,7 @@
       <li class="page-item">
         <a class="page-link" href="?page={{ page.paginator.num_pages }}">У кінець</a>
       </li>
+      {% endif %}
       {% endif %}
     </ul>
   </nav>

@@ -9,6 +9,8 @@ urlpatterns = [
     path('stud_csv/', views.stud_csv, name='stud_csv'),
     path('stud_upload', views.stud_upload, name='stud_upload'),
     
+
+
     path('prepod_form/', views.prepod_form, name='prepod_form'),   
     path('prepod_form/<int:id>/', views.prepod_form, name='prepod_form_id'),   
     path('prepod_form/delete/<int:id>/', views.prepod_delete, name='prepod_delete'),   
@@ -46,6 +48,6 @@ urlpatterns = [
     path('itog_upload', views.itog_upload, name='itog_upload'),
 
     path('modal/', views.modal, name='modal'),
-    path('stud_filter/', views.stud_filter, name='stud_filter'),
+    
 
 ]

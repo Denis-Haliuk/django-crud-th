@@ -46,5 +46,6 @@ urlpatterns = [
     path('itog_upload', views.itog_upload, name='itog_upload'),
 
     path('modal/', views.modal, name='modal'),
+    path('stud_filter/', views.stud_filter, name='stud_filter'),
 
 ]

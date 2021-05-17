@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from itertools import chain
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Q
 # Create your views here.
 
 def main_page(request):
@@ -17,14 +18,61 @@ def stud_list(request):
     #context = {'stud_list':Spisok_stud.objects.all()}
     #return render(request, "register/stud/stud_list.html", context)
 
-    object_list = Spisok_stud.objects.all()  
+    groupList = Groups.objects.all()
+    object_list = Spisok_stud.objects.all() 
     paginator = Paginator(object_list, 4)
     page = request.GET.get('page')  
    
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, "register/stud/stud_list.html", {'stud_list': page_obj})
+    return render(request, "register/stud/stud_list.html", {'stud_list': page_obj, 'groupList':groupList})
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+def stud_filter(request):
+    #context = {'stud_list':Spisok_stud.objects.all()}
+    #return render(request, "register/stud/stud_list.html", context)
+    groupList = Groups.objects.all()
+    data = request.GET.get('stud_data')
+    group = request.GET.get('cgroup')
+    #object_list = Spisok_stud.objects.filter(familiya__icontains = surname)
+    #if is_valid_queryparam(data):
+        #object_list = Spisok_stud.objects.filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
+    #else:
+        #object_list = Spisok_stud.objects.all()
+    #if is_valid_queryparam(group) and group != 'Оберіть групу':
+       # object_list = Spisok_stud.objects.filter(n_group = group)
+    #else:
+        #object_list = Spisok_stud.objects.all()  
+    if is_valid_queryparam(data) and is_valid_queryparam(group) and group != 'Оберіть групу':
+        object_list = Spisok_stud.objects.filter(Q(n_group = group)and (Q(familiya__icontains = data)|Q(n_tel__icontains = data)))
+    elif is_valid_queryparam(data):
+        object_list = Spisok_stud.objects.filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
+    elif is_valid_queryparam(group) and group != 'Оберіть групу':
+        object_list = Spisok_stud.objects.filter(n_group = group)
+    else:
+        object_list = Spisok_stud.objects.all()
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')  
+   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/stud/stud_list.html", {'stud_list': page_obj, 'groupList':groupList})
+#def stud_filter(request):
+    #object_list = Spisok_stud.objects.all()
+    #surname = request.GET.get('surname_stud')
+    #context = {
+        #'#stud_list':Spisok_stud.objects.filter(id = 22)
+    #}
+   #return render(request, "register/stud/stud_list.html", {'stud_list': page_obj})
+    #Spisok_stud.objects.filter(id = 22)
+    #if surname != '' and surname is not None:
+        #qs = qs.filter(familiya = "Барханський")
+    #context = {
+        #'stud_list':Spisok_stud.objects.filter(id = 22)
+    #}
+   #return render(request, "register/stud/stud_list.html", context)
 
 
 def stud_form(request, id=0):
@@ -256,7 +304,7 @@ def spec_csv(request):
     return response
 
 def modal(request):
-    return render(request, "register/modal.html")    
+    return render(request, "register/modal.html")
 
 def spec_upload(request):
     template = "register/specialnost/spec_list.html"

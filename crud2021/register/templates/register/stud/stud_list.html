@@ -9,10 +9,95 @@
     <a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
     <a class="btn btn-success" href="{% url 'stud_csv' %}" ><i class="fas fa-long-arrow-alt-down " ></i> Експорт таблиці</a>
     <a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
+    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#stud_filterModal"><i class="fas fa-filter"></i> Фільтр та пошук</a>
       {% include "register/modal.html" %}
+      {% include "register/stud/stud_filter.html" %}
     </div>
 
+    <!--<form method="GET" action="{% url 'stud_filter' %}">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="surname_stud" placeholder="Пошук за прізвищем" />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="id_exact" placeholder="ID exact..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_or_author" placeholder="Title or author..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMin">Minimum View Count</label>
+            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="0" name="view_count_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMax">Maximum View Count</label>
+            <input type="number" min=0 class="form-control" id="viewCountMax" placeholder="10000?" name="view_count_max">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMin">Publish date minimum</label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMax">Publish date maximum</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="category">Category</label>
+            <select id="category" class="form-control" name="category">
+              <option selected>Choose...</option>
+              {% for cat in categories %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="reviewed" name="reviewed">
+            <label class="form-check-label" for="reviewed">
+              Reviewed
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="notReviewed" name="notReviewed">
+            <label class="form-check-label" for="notReviewed">
+              Not reviewed
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>-->
 
+    
 <div class="overflow-auto">
 
 <table class="table ">
@@ -34,7 +119,7 @@
             <td>Місто</td>
             <td>Вулиця</td>
             <td>Номер телефону</td>
-            <td>Номер групи</td>
+            <td><a class="btn btn-light" href="#" data-toggle="modal" data-target="#stud_filterModal"><i class="fas fa-filter"></i>Номер групи</a></td>
             <td>ІПН</td>
             <td>Паспорт</td>
             <td>Стан студента</td>
@@ -115,5 +200,5 @@
 
 
 </div>
-{% include "../pagination.html" with page=stud_list %} 
+{% include "../pagination.html" with page=stud_list %}
 {% endblock content %}

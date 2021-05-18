@@ -10,7 +10,7 @@ class Specialnost(models.Model):
     polnoe_nazv = models.CharField(max_length=100) #func?
 
     def __str__(self):
-        return self.n_specialnosty
+        return "%s %s" % (self.n_specialnosty, self.abbreviatura)
    
 
 class Groups(models.Model):

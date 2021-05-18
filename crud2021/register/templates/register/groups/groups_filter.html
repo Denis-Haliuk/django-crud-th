@@ -16,7 +16,7 @@
                     <select id="group" class="form-control" name="spec">
                       <option selected>Оберіть cпеціальність</option>
                       {% for sp in spec_list%}
-                      <option value="{{ sp.id }}">{{ sp.n_specialnosty }}</option>
+                      <option value="{{ sp.id }}">{{ sp.n_specialnosty }} {{sp.abbreviatura }}</option>
                       {% endfor %}
                       
                     </select>

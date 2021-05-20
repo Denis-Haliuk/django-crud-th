@@ -1,0 +1,58 @@
+<div class="modal fade" id="itog_filterModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadModalLabel">Фільтрація та пошук</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="GET" action="{% url 'itog_list' %}">
+                <div class="form-row">
+                  <input type = "search" name = "data" hidden/>
+                    <div class="form-group col-12">
+                        <div class="input-group">
+                            <input class="form-control py-2 border-right-0 border" type="search" name="surname" placeholder="Пошук за прізвищем студента" />
+                            <span class="input-group-append">
+                                <div class="input-group-text bg-transparent">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </span>
+                        </div>
+                    </div>        
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="predmet">Предмет</label>
+                    <select id="ms" class = "selectpicker" multiple = "multiple" name="predmet" title = "Оберіть предмет">
+                      
+                      {% for pred in predmetList%}
+                      <option value="{{ pred.id }}">{{ pred.nazv_predmeta }} {{ pred.specialnost }}</option>
+                      {% endfor %}
+                      
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="predmet">Оцінка</label>
+                    <select id="ot" class = "selectpicker" multiple = "multiple" name="otsenka" title = "Оцінка">
+                      <option value=12>12</option> <option value=11>11</option> <option value=10>10</option> <option value=9>9</option>
+                      <option value=8>8</option> <option value=7>7</option> <option value=6>6</option> <option value=5>5</option>
+                      <option value=4>4</option> <option value=3>3</option> <option value=2>2</option> <option value=1>1</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Шукати</button>
+                <a class="btn btn-secondary" href="{% url 'itog_list' %}" ><i class="fas fa-window-close"></i> Відмінити фільтри</a>
+              </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i> Назад</button>
+                </div>
+      </div>
+    </div>
+  </div>
+  

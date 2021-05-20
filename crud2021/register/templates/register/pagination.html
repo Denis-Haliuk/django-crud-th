@@ -38,7 +38,7 @@
       </li> 
       {% if page.has_next %}
       
-      {% if 'stud_data' in request.get_full_path %}
+      {% if data in request.get_full_path %}
    
       <li class="page-item">
         <a class="page-link" href="?{{ request.get_full_path}}&page={{ page.next_page_number }}">{{ page.next_page_number }}</a>

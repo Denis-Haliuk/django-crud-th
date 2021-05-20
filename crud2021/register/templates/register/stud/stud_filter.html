@@ -12,6 +12,7 @@
                 <div class="form-row">
                     <div class="form-group col-12">
                         <div class="input-group">
+                            <input type = "search" name = "data" hidden/>
                             <input class="form-control py-2 border-right-0 border" type="search" name="stud_data" placeholder="Пошук за прізвищем або номером телефону" />
                             <span class="input-group-append">
                                 <div class="input-group-text bg-transparent">
@@ -24,8 +25,8 @@
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="group">Номер групи</label>
-                    <select id="group" class="form-control" name="cgroup">
-                      <option selected>Оберіть групу</option>
+                    <select id="ms" class = "selectpicker" multiple = "multiple" name="cgroup" title = "Оберіть групу">
+                      
                       {% for Gr in groupList%}
                       <option value="{{ Gr.id }}">{{ Gr.nazvanie }}</option>
                       {% endfor %}

@@ -17,24 +17,19 @@ def main_page(request):
 def stud_list(request):
     #context = {'stud_list':Spisok_stud.objects.all()}
     #return render(request, "register/stud/stud_list.html", context)
-
     groupList = Groups.objects.all()
     object_list = Spisok_stud.objects.all() 
     data = request.GET.get('stud_data')
-    group = request.GET.get('cgroup')
-
-    
-    
-    if is_valid_queryparam(data) and is_valid_queryparam(group) and group != 'Оберіть групу':
-        object_list = Spisok_stud.objects.filter(Q(n_group = group)and (Q(familiya__icontains = data)|Q(n_tel__icontains = data)))
+    group = request.GET.getlist('cgroup')
+    if is_valid_queryparam(data) and is_valid_queryparam(group):
+        object_list = Spisok_stud.objects.filter(Q(n_group__in = group)).filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
     elif is_valid_queryparam(data):
         object_list = Spisok_stud.objects.filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
     elif is_valid_queryparam(group) and group != 'Оберіть групу':
-        object_list = Spisok_stud.objects.filter(n_group = group)
+        group = [int(i) for i in group]
+        object_list = Spisok_stud.objects.filter(n_group__in = group)
     else:
         object_list = Spisok_stud.objects.all()
-    
-    
     paginator = Paginator(object_list, 4)
     page = request.GET.get('page')  
     page_number = request.GET.get('page')
@@ -45,7 +40,7 @@ def stud_list(request):
      'groupList':groupList})
 
 def is_valid_queryparam(param):
-    return param != '' and param is not None
+    return param != '' and param is not None and param !=[]
 
 
 
@@ -162,17 +157,14 @@ def groups_list(request):
     #return render(request, "register/groups/groups_list.html", context)
     spec_list=Specialnost.objects.all()
     object_list = Groups.objects.all()  
-    
-    page = request.GET.get('page')  
-    spec = request.GET.get('spec')
-
-    
-    if is_valid_queryparam(spec) and spec != 'Оберіть спеціальність':
-        object_list = Groups.objects.filter(n_specialnosty  = spec)
+    data = request.GET.get('spec')
+    if is_valid_queryparam(data) and data != 'Оберіть спеціальність':
+        object_list = Groups.objects.filter(n_specialnosty  = data)
     else:
         object_list = Groups.objects.all()
   
     paginator = Paginator(object_list, 4)
+    page = request.GET.get('page')
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, "register/groups/groups_list.html", 
@@ -206,14 +198,31 @@ def groups_delete(request,id):
 def predmety_list(request):
     #context = {'predmety_list':Predmety.objects.all()}
     #return render(request, "register/predmety/predmety_list.html", context)
-
+    spec_list=Specialnost.objects.all()
     object_list = Predmety.objects.all()  
+    data = request.GET.get('spec')
+     
+
+    if is_valid_queryparam(data) and data != 'Оберіть спеціальність':
+        object_list = Predmety.objects.filter(specialnost  = data)
+    else:
+        object_list = Predmety.objects.all()
+  
     paginator = Paginator(object_list, 4)
-    page = request.GET.get('page')  
-   
+    page = request.GET.get('page') 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, "register/predmety/predmety_list.html", {'predmety_list': page_obj})
+    return render(request, "register/predmety/predmety_list.html", 
+    {'predmety_list': page_obj, 
+    'spec_list':spec_list})
+
+    #object_list = Predmety.objects.all()  
+    #paginator = Paginator(object_list, 4)
+    #page = request.GET.get('page')  
+   
+    #page_number = request.GET.get('page')
+    #page_obj = paginator.get_page(page_number)
+    #return render(request, "register/predmety/predmety_list.html", {'predmety_list': page_obj})
 
 def predmety_form(request,id=0):
     if request.method == "GET":
@@ -242,14 +251,57 @@ def predmety_delete(request,id):
 def itog_list(request):
     #context = {'itog_list':Itog.objects.all()}
     #return render(request, "register/itog/itog_list.html", context)
+    predmetList = Predmety.objects.all()
+    object_list = Itog.objects.all() 
+    data = request.GET.get('surname')
+    predmet = request.GET.getlist('predmet')
+    otsenkap = request.GET.getlist('otsenka')
+    if is_valid_queryparam(data) and is_valid_queryparam(predmet) and is_valid_queryparam(otsenkap):
+        idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
+        predmet = [int(i) for i in predmet]
+        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(n_stud__in = idstud)).filter(Q(otsenka__in = otsenkap))
+    elif is_valid_queryparam(data) and is_valid_queryparam(predmet):
+        predmet = [int(i) for i in predmet]
+        idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
+        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter( Q(n_stud__in = idstud))
+    elif is_valid_queryparam(data) and is_valid_queryparam(otsenkap):
+        idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
+        object_list = Itog.objects.filter(Q(otsenka__in = otsenkap)).filter(Q(n_stud__in = idstud))
+    elif is_valid_queryparam(otsenkap) and is_valid_queryparam(predmet):
+        predmet = [int(i) for i in predmet]
+        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(otsenka__in = otsenkap))
+    elif is_valid_queryparam(data):
+        try:
+            idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
+        except Exception:
+            object_list = Itog.objects.filter(n_stud = 0)
+        else:
+            object_list = Itog.objects.filter(Q(n_stud__in = idstud))
+    elif is_valid_queryparam(otsenkap):
+        object_list = Itog.objects.filter(otsenka__in = otsenkap)
+    elif is_valid_queryparam(predmet):
+        predmet = [int(i) for i in predmet]
+        print(predmet)
+        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet))
+    else:
+        object_list = Itog.objects.all()
 
-    object_list = Itog.objects.all()  
     paginator = Paginator(object_list, 4)
     page = request.GET.get('page')  
-   
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, "register/itog/itog_list.html", {'itog_list': page_obj})
+    return render(request, 
+    "register/itog/itog_list.html",
+     {'itog_list': page_obj, 
+     'predmetList':predmetList})
+
+    #object_list = Itog.objects.all()  
+    #paginator = Paginator(object_list, 4)
+    #page = request.GET.get('page')  
+   
+    #page_number = request.GET.get('page')
+    #page_obj = paginator.get_page(page_number)
+    #return render(request, "register/itog/itog_list.html", {'itog_list': page_obj})
 
 def itog_form(request,id=0):
     if request.method == "GET":

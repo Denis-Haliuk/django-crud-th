@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+#from django.views.generic import ItogAutocomplete
 urlpatterns = [
     path('', views.main_page, name='main_page'), 
     path('stud_form/', views.stud_form, name='stud_form'), 
@@ -48,6 +49,9 @@ urlpatterns = [
     path('itog_upload', views.itog_upload, name='itog_upload'),
 
     path('modal/', views.modal, name='modal'),
+    path('itog-autocomplete_stud/', views.ItogAutocomplete_stud.as_view(), name='itog-autocomplete_stud'),
+    path('itog-autocomplete_predmet/', views.ItogAutocomplete_predmet.as_view(), name='itog-autocomplete_predmet'),
+    path('itog-autocomplete_prepod/', views.ItogAutocomplete_prepod.as_view(), name='itog-autocomplete_prepod'),
     
 
 ]

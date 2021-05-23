@@ -1,6 +1,8 @@
+from dal import autocomplete, widgets
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models.fields import DateField
+from django.forms.widgets import Select
 from .models import Spisok_stud, Prepod, Specialnost, Groups, Predmety, Itog
 from django.conf import settings
 
@@ -103,6 +105,11 @@ class ItogForm(forms.ModelForm):
     class Meta:
         model = Itog
         fields = ('id', 'n_stud','n_predmeta','n_prepod','otsenka')
+        widgets = {
+            'n_stud':autocomplete.ModelSelect2(url='itog-autocomplete_stud'),
+            'n_predmeta':autocomplete.ModelSelect2(url='itog-autocomplete_predmet'),
+            'n_prepod':autocomplete.ModelSelect2(url='itog-autocomplete_prepod')
+        }
         labels={
         'id':'Номер запису',
         'n_stud':'Студент',

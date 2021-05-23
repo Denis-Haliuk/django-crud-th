@@ -8,6 +8,7 @@ from itertools import chain
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
+from dal import autocomplete
 # Create your views here.
 
 def main_page(request):
@@ -254,22 +255,31 @@ def itog_list(request):
     predmetList = Predmety.objects.all()
     object_list = Itog.objects.all() 
     data = request.GET.get('surname')
-    predmet = request.GET.getlist('predmet')
+    predmet = request.GET.get('predmet')
     otsenkap = request.GET.getlist('otsenka')
     if is_valid_queryparam(data) and is_valid_queryparam(predmet) and is_valid_queryparam(otsenkap):
         idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
-        predmet = [int(i) for i in predmet]
-        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(n_stud__in = idstud)).filter(Q(otsenka__in = otsenkap))
+        #predmet = [int(i) for i in predmet]
+        try:
+            object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(n_stud__in = idstud)).filter(Q(otsenka__in = otsenkap))
+        except Exception:
+            object_list = Itog.objects.filter(n_stud = 0)
     elif is_valid_queryparam(data) and is_valid_queryparam(predmet):
-        predmet = [int(i) for i in predmet]
+        #predmet = [int(i) for i in predmet]
         idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
-        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter( Q(n_stud__in = idstud))
+        try:
+            object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter( Q(n_stud__in = idstud))
+        except Exception:
+            object_list = Itog.objects.filter(n_stud = 0)
     elif is_valid_queryparam(data) and is_valid_queryparam(otsenkap):
         idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
         object_list = Itog.objects.filter(Q(otsenka__in = otsenkap)).filter(Q(n_stud__in = idstud))
     elif is_valid_queryparam(otsenkap) and is_valid_queryparam(predmet):
-        predmet = [int(i) for i in predmet]
-        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(otsenka__in = otsenkap))
+        #predmet = [int(i) for i in predmet]
+        try:
+            object_list = Itog.objects.filter(Q(n_predmeta__in = predmet)).filter(Q(otsenka__in = otsenkap))
+        except Exception:
+            object_list = Itog.objects.filter(n_stud = 0)
     elif is_valid_queryparam(data):
         try:
             idstud = Spisok_stud.objects.filter(Q(familiya__icontains = data))
@@ -280,9 +290,11 @@ def itog_list(request):
     elif is_valid_queryparam(otsenkap):
         object_list = Itog.objects.filter(otsenka__in = otsenkap)
     elif is_valid_queryparam(predmet):
-        predmet = [int(i) for i in predmet]
-        print(predmet)
-        object_list = Itog.objects.filter(Q(n_predmeta__in = predmet))
+        #predmet = [int(i) for i in predmet]
+        try:
+            object_list = Itog.objects.filter(Q(n_predmeta__in = predmet))
+        except Exception:
+            object_list = Itog.objects.filter(n_stud = 0)
     else:
         object_list = Itog.objects.all()
 
@@ -575,3 +587,26 @@ def itog_upload(request):
                 })
     context = {}
     return render(request, template, context)
+
+class ItogAutocomplete_stud(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        #if not self.request.user.is_authenticated():
+            #return Itog.objects.none()
+        qs = Spisok_stud.objects.all()
+        if self.q:
+            qs = qs.filter(familiya__icontains=self.q)
+        return qs
+
+class ItogAutocomplete_predmet(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Predmety.objects.all()
+        if self.q:
+            qs = qs.filter(nazv_predmeta__icontains=self.q)
+        return qs
+
+class ItogAutocomplete_prepod(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Prepod.objects.all()
+        if self.q:
+            qs = qs.filter(familiya__icontains=self.q)
+        return qs

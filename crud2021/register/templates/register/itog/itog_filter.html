@@ -22,7 +22,7 @@
                         </div>
                     </div>        
                 </div>
-                <div class="form-row">
+                <!--<div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="predmet">Предмет</label>
                     <select id="ms" class = "selectpicker" multiple = "multiple" name="predmet" title = "Оберіть предмет">
@@ -33,7 +33,19 @@
                       
                     </select>
                   </div>
+                </div>-->
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="predmet">Предмет</label>
+                    <input list="predm" name="predmet" autocomplete="off" placeholder="Оберіть предмет">
+                    <datalist id="predm">
+                      {% for pred in predmetList%}
+                      <option value="{{ pred.id }}">{{ pred.nazv_predmeta }} {{ pred.specialnost }}</option>
+                      {% endfor %}
+                    </datalist>
+                  </div>
                 </div>
+  
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="predmet">Оцінка</label>

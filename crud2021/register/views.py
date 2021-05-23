@@ -9,12 +9,22 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from dal import autocomplete
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+
 # Create your views here.
 
+    
+@login_required
 def main_page(request):
     return render(request, "register/main_page.html")
+   
+    
 
 
+@login_required
 def stud_list(request):
     #context = {'stud_list':Spisok_stud.objects.all()}
     #return render(request, "register/stud/stud_list.html", context)
@@ -44,7 +54,7 @@ def is_valid_queryparam(param):
     return param != '' and param is not None and param !=[]
 
 
-
+@login_required
 def stud_form(request, id=0):
     if request.method == "GET":
         if id==0:
@@ -66,7 +76,7 @@ def stud_form(request, id=0):
         else:
             return render(request, "register/stud/stud_form.html", {'form':form})
         return redirect('/stud_list')
-
+@login_required
 def stud_delete(request,id):
     stud= Spisok_stud.objects.get(pk=id)
     stud.delete()
@@ -74,7 +84,7 @@ def stud_delete(request,id):
 
 
 
-
+@login_required
 def prepod_list(request):
     #context = {'prepod_list':Prepod.objects.all()}
     #return render(request, "register/prepod/prepod_list.html", context)
@@ -88,7 +98,7 @@ def prepod_list(request):
     return render(request, "register/prepod/prepod_list.html", {'prepod_list': page_obj})
 
 
-
+@login_required
 def prepod_form(request,id=0):
     if request.method == "GET":
         if id==0:
@@ -108,14 +118,14 @@ def prepod_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/prepod_list')
-
+@login_required
 def prepod_delete(request,id):
     prepod=Prepod.objects.get(pk=id)
     prepod.delete()
     return redirect('/prepod_list')
 
 
-
+@login_required
 def spec_list(request):
     #context = {'spec_list':Specialnost.objects.all()}
     #return render(request, "register/specialnost/spec_list.html", context)
@@ -127,7 +137,7 @@ def spec_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, "register/specialnost/spec_list.html", {'spec_list': page_obj})
-
+@login_required
 def spec_form(request,id=0):
     if request.method == "GET":
         if id==0:
@@ -145,14 +155,14 @@ def spec_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/spec_list')
-
+@login_required
 def spec_delete(request,id):
     spec=Specialnost.objects.get(pk=id)
     spec.delete()
     return redirect('/spec_list')
 
 
-
+@login_required
 def groups_list(request):
    # context = {'groups_list':Groups.objects.all()}
     #return render(request, "register/groups/groups_list.html", context)
@@ -171,7 +181,7 @@ def groups_list(request):
     return render(request, "register/groups/groups_list.html", 
     {'groups_list': page_obj, 
     'spec_list':spec_list})
-
+@login_required
 def groups_form(request,id=0):
     if request.method == "GET":
         if id==0:
@@ -189,13 +199,13 @@ def groups_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/groups_list')
-
+@login_required
 def groups_delete(request,id):
 
     groups=Groups.objects.get(pk=id)
     groups.delete()
     return redirect('/groups_list')
-
+@login_required
 def predmety_list(request):
     #context = {'predmety_list':Predmety.objects.all()}
     #return render(request, "register/predmety/predmety_list.html", context)
@@ -224,7 +234,7 @@ def predmety_list(request):
     #page_number = request.GET.get('page')
     #page_obj = paginator.get_page(page_number)
     #return render(request, "register/predmety/predmety_list.html", {'predmety_list': page_obj})
-
+@login_required
 def predmety_form(request,id=0):
     if request.method == "GET":
         if id==0:
@@ -242,13 +252,13 @@ def predmety_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/predmety_list')
-
+@login_required
 def predmety_delete(request,id):
     predmety=Predmety.objects.get(pk=id)
     predmety.delete()
     return redirect('/predmety_list')
 
-
+@login_required
 def itog_list(request):
     #context = {'itog_list':Itog.objects.all()}
     #return render(request, "register/itog/itog_list.html", context)
@@ -314,7 +324,7 @@ def itog_list(request):
     #page_number = request.GET.get('page')
     #page_obj = paginator.get_page(page_number)
     #return render(request, "register/itog/itog_list.html", {'itog_list': page_obj})
-
+@login_required
 def itog_form(request,id=0):
     if request.method == "GET":
         if id==0:
@@ -332,7 +342,7 @@ def itog_form(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('/itog_list')
-
+@login_required
 def itog_delete(request,id):
     itog=Itog.objects.get(pk=id)
     itog.delete()

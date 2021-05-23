@@ -1,8 +1,12 @@
+from django.contrib.auth import login
+
 from django.urls import path, include
 from . import views
 #from django.views.generic import ItogAutocomplete
 urlpatterns = [
-    path('', views.main_page, name='main_page'), 
+    path('', views.LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('main_page', views.main_page, name='main_page'), 
     path('stud_form/', views.stud_form, name='stud_form'), 
     path('stud_form/<int:id>/', views.stud_form, name='stud_form_id'),  
     path('stud_form/delete/<int:id>/', views.stud_delete, name='stud_delete'),  
@@ -10,7 +14,6 @@ urlpatterns = [
     path('stud_csv/', views.stud_csv, name='stud_csv'),
     path('stud_upload', views.stud_upload, name='stud_upload'),
     
-
 
     path('prepod_form/', views.prepod_form, name='prepod_form'),   
     path('prepod_form/<int:id>/', views.prepod_form, name='prepod_form_id'),   

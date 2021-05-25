@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Студенти</title>
+    <style type="text/css">
+        @page {
+            size: A4 landscape;
+            margin: 2cm;
+        }
+
+        @font-face {
+            font-family: FreeSans;
+            src: url("static/fonts/FreeSans.ttf");
+        }
+
+        @font-face {
+            font-family: FreeSansBold;
+            src: url("static/fonts/FreeSansBold.ttf");
+        }
+        
+        * {
+        font-family: FreeSans;
+        font-size: 4px;
+        }
+
+        h3, p, th{
+            font-family: FreeSansBold;
+            text-align: left; 
+        }
+
+        h3, p{
+            font-size: 5px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <div>
+            <table>
+                <td>
+                    <div>
+                        <h3>Звіт "Студенти"</h3>
+                        <p>Дата - {% now "jS F Y H:i" %}</p>
+                    </div>
+                </td>
+            </table>
+            <br/>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Номер запису</th>
+                        <th>Студент</th>
+                        <th>Предмет</th>
+                        <th>Викладач</th>
+                        <th>Оцінка</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for Itog in itog_list %}
+        <tr>
+            <td>{{Itog.id}}</td>
+            <td>{{Itog.n_stud}}</td>
+            <td>{{Itog.n_predmeta}}</td>
+            <td>{{Itog.n_prepod}}</td>
+            <td>{{Itog.otsenka}}</td>
+            {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

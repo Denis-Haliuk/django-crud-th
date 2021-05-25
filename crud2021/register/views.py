@@ -13,7 +13,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
+from xhtml2pdf import pisa
+from io import StringIO, BytesIO 
+from django.template.loader import get_template 
+from django.template import Context
+#from weasyprint import HTML
+import sys
+import locale
 # Create your views here.
 
     
@@ -22,6 +28,14 @@ def main_page(request):
     return render(request, "register/main_page.html")
    
     
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result, encoding = "UTF-8")
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
 
 
 @login_required
@@ -33,19 +47,23 @@ def stud_list(request):
     data = request.GET.get('stud_data')
     group = request.GET.getlist('cgroup')
     if is_valid_queryparam(data) and is_valid_queryparam(group):
-        object_list = Spisok_stud.objects.filter(Q(n_group__in = group)).filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
+        object_list = Spisok_stud.objects.filter(Q(n_group__in = group)).filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data)).order_by('-n_group', 'familiya')
     elif is_valid_queryparam(data):
-        object_list = Spisok_stud.objects.filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data))
+        object_list = Spisok_stud.objects.filter(Q(familiya__icontains = data)|Q(n_tel__icontains = data)).order_by('-n_group', 'familiya')
     elif is_valid_queryparam(group) and group != 'Оберіть групу':
         group = [int(i) for i in group]
-        object_list = Spisok_stud.objects.filter(n_group__in = group)
+        object_list = Spisok_stud.objects.filter(n_group__in = group).order_by('-n_group', 'familiya')
     else:
-        object_list = Spisok_stud.objects.all()
+        object_list = Spisok_stud.objects.all().order_by('-n_group', 'familiya')
     paginator = Paginator(object_list, 4)
     page = request.GET.get('page')  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 
+    if request.GET.get('PDF_stud') == 'Звіт':
+        pdf = render_to_pdf('register/stud/stud_pdf.html', {'stud_list': object_list})
+        return HttpResponse(pdf, content_type='application/pdf')
+    else:
+        return render(request, 
     "register/stud/stud_list.html",
      {'stud_list': page_obj, 
      'groupList':groupList})
@@ -312,7 +330,11 @@ def itog_list(request):
     page = request.GET.get('page')  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 
+    if request.GET.get('PDF_itog') == 'Звіт':
+        pdf = render_to_pdf('register/itog/itog_pdf.html', {'itog_list': object_list})
+        return HttpResponse(pdf, content_type='application/pdf')
+    else:
+        return render(request, 
     "register/itog/itog_list.html",
      {'itog_list': page_obj, 
      'predmetList':predmetList})

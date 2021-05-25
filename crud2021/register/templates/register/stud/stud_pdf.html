@@ -1,0 +1,109 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Студенти</title>
+    <style type="text/css">
+        @page {
+            size: A4 landscape;
+            margin: 2cm;
+        }
+
+        @font-face {
+            font-family: FreeSans;
+            src: url("static/fonts/FreeSans.ttf");
+        }
+
+        @font-face {
+            font-family: FreeSansBold;
+            src: url("static/fonts/FreeSansBold.ttf");
+        }
+        
+        * {
+        font-family: FreeSans;
+        font-size: 4px;
+        }
+
+        h3, p, th{
+            font-family: FreeSansBold;
+            text-align: left; 
+        }
+
+        h3, p{
+            font-size: 5px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <div>
+            <table>
+                <td>
+                    <div>
+                        <h3>Звіт "Студенти"</h3>
+                        <p>Дата - {% now "jS F Y H:i" %}</p>
+                    </div>
+                </td>
+            </table>
+            <br/>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Номер студента</th>
+                        <th>Прізвище</th>
+                        <th>Ім`я</th>
+                        <th>По-батькові</th>
+                        <th>Стать</th>
+                        <th>ВПО</th>
+                        <th>Сирота</th>
+                        <th>Інвалід</th>
+                        <th>АТО</th>
+                        <th>Чорнобиль</th>
+                        <th>Малозабезпечений</th>
+                        <th>Бюджет</th>
+                        <th>Дата народження</th>
+                        <th>Місто</th>
+                        <th>Вулиця</th>
+                        <th>Номер телефону</th>
+                        <th>Номер групи</th>
+                        <th>ІПН</th>
+                        <th>Паспорт</th>
+                        <th>Стан студента</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for Spisok_stud in stud_list %}
+        <tr>
+            <td>{{Spisok_stud.id}}</td>
+            <td>{{Spisok_stud.familiya}}</td>
+            <td>{{Spisok_stud.imya}}</td>
+            <td>{{Spisok_stud.otchestvo}}</td>
+            <td>{{Spisok_stud.sex}}</td>
+            <td>{{Spisok_stud.vpo|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.sirota|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.invalid|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.ato|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.chernobil|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.maloobespech|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.budget|yesno:"+,-"}}</td>
+            <td>{{Spisok_stud.data_rozhdeniya}}</td>
+            <td>{{Spisok_stud.city}}</td>
+            <td>{{Spisok_stud.street}}</td>
+            <td>{{Spisok_stud.n_tel}}</td>
+            <td>{{Spisok_stud.n_group}}</td>
+            <td>{{Spisok_stud.inn}}</td>
+            <td>{{Spisok_stud.pasport}}</td>
+            <td>{{Spisok_stud.id_stan}}</td>
+            {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

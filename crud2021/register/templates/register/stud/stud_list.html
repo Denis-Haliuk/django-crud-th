@@ -9,7 +9,7 @@
     <a class="btn btn-success" href="{% url 'stud_form' %}" ><i class="far fa-plus-square"></i> Додати запис</a>
     <a class="btn btn-success" href="{% url 'stud_csv' %}" ><i class="fas fa-long-arrow-alt-down " ></i> Експорт таблиці</a>
     <a name = "write_stud" class="btn btn-success" href="#" data-toggle="modal" data-target="#uploadModal"><i class="fas fa-long-arrow-alt-up"></i> Імпорт таблиці</a>
-    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#stud_filterModal"><i class="fas fa-filter"></i> Фільтр та пошук</a>
+    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#stud_filterModal"><i class="fas fa-filter"></i> Фільтр, пошук, PDF</a>
       {% include "register/modal.html" %}
       {% include "register/stud/stud_filter.html" %}
     </div>

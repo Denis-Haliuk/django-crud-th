@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '12=yj#43ie#@&i!#@@s21=eo=8rl0^7l#x)h8h+w)#n#28ac3b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'crud21',
-        'USER' : 'crud2021',
-        'PASSWORD' : '0000',
+        'USER' : 'crud21',
+        'PASSWORD' : 'crud21',
         'HOST' : 'localhost',
     }
 }

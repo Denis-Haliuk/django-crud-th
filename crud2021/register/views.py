@@ -14,12 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from xhtml2pdf import pisa
-from io import StringIO, BytesIO 
+from io import BytesIO 
 from django.template.loader import get_template 
-from django.template import Context
-#from weasyprint import HTML
-import sys
-import locale
 # Create your views here.
 
     
@@ -245,13 +241,6 @@ def predmety_list(request):
     {'predmety_list': page_obj, 
     'spec_list':spec_list})
 
-    #object_list = Predmety.objects.all()  
-    #paginator = Paginator(object_list, 4)
-    #page = request.GET.get('page')  
-   
-    #page_number = request.GET.get('page')
-    #page_obj = paginator.get_page(page_number)
-    #return render(request, "register/predmety/predmety_list.html", {'predmety_list': page_obj})
 @login_required
 def predmety_form(request,id=0):
     if request.method == "GET":
@@ -339,13 +328,6 @@ def itog_list(request):
      {'itog_list': page_obj, 
      'predmetList':predmetList})
 
-    #object_list = Itog.objects.all()  
-    #paginator = Paginator(object_list, 4)
-    #page = request.GET.get('page')  
-   
-    #page_number = request.GET.get('page')
-    #page_obj = paginator.get_page(page_number)
-    #return render(request, "register/itog/itog_list.html", {'itog_list': page_obj})
 @login_required
 def itog_form(request,id=0):
     if request.method == "GET":

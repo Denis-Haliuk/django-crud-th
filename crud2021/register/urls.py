@@ -55,6 +55,10 @@ urlpatterns = [
     path('itog-autocomplete_stud/', views.ItogAutocomplete_stud.as_view(), name='itog-autocomplete_stud'),
     path('itog-autocomplete_predmet/', views.ItogAutocomplete_predmet.as_view(), name='itog-autocomplete_predmet'),
     path('itog-autocomplete_prepod/', views.ItogAutocomplete_prepod.as_view(), name='itog-autocomplete_prepod'),
+
+    path('inogorod/', views.inogorod, name='inogorod'),
+    path('sex/', views.sex, name='sex'),
+    path('adults/', views.adults, name='adults'),
     
 
 ]

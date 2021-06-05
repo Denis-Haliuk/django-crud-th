@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate
 from xhtml2pdf import pisa
 from io import BytesIO 
 from django.template.loader import get_template 
+import datetime
 # Create your views here.
 
     
@@ -624,3 +625,40 @@ class ItogAutocomplete_prepod(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(familiya__icontains=self.q)
         return qs
+
+@login_required
+def inogorod(request):
+    object_list = Spisok_stud.objects.exclude(city__icontains = 'Дружківка')  
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page') 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/zaprosi/inogorod.html", 
+    {'stud_list': page_obj})
+
+@login_required
+def sex(request):
+    object_list = Spisok_stud.objects.filter(sex__icontains = 'жін')
+    data = request.GET.get('sex')
+    if(is_valid_queryparam(data)):
+        object_list = Spisok_stud.objects.filter(sex__icontains = data)
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page') 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/zaprosi/sex.html", 
+    {'stud_list': page_obj})
+
+@login_required
+def adults(request):
+    a_date = datetime.date.today()
+    days = datetime.timedelta(6570)
+    new_date = a_date - days
+    start_date = datetime.date(1990, 1, 1)
+    object_list = Spisok_stud.objects.filter(data_rozhdeniya__range=(start_date, new_date))
+    paginator = Paginator(object_list, 4)
+    page = request.GET.get('page') 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "register/zaprosi/adult.html", 
+    {'stud_list': page_obj})

@@ -17,10 +17,13 @@
         <div class="  mt-5">
             <div class="jumbotron ">
                 <h1 class="display-6 font-weight-bold ">АІС "Дружківський фаховий коледж"</h1>
-                <p class="lead">Для початку роботи, оберіть таблицю.</p>
+                <p class="lead">Для початку роботи, оберіть таблицю або запит.</p>
                 <hr class="my-4">
                 <div class="d-grid gap-2  d-md-flex justify-content-md-center">
                 <ul class="nav nav-pills flex-column ">
+                  <li class = "nav-item text-center" >
+                    <h3 class = "mb-2">Таблиці:</h3>
+                  </li>
                     <li class="nav-item "> 
                       <a class="btn btn-outline-dark btn-lg btn-lg btn-block mb-2" href="{% url 'stud_list' %}" >Студенти</a>
                     </li>
@@ -38,6 +41,19 @@
                     </li>
                     <li class="nav-item">
                       <a class="btn btn-outline-dark btn-lg btn-lg btn-block mb-2" href="{% url 'itog_list' %}">Підсумки</a>
+                    </li>
+                    <hr>
+                    <li class="nav-item text-center">
+                      <h3 class = "mb-2">Запити:</h3>
+                    </li>
+                    <li class="nav-item">
+                      <a class="btn btn-outline-dark btn-lg btn-lg btn-block mb-2" href="{% url 'inogorod' %}">Іногородні</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="btn btn-outline-dark btn-lg btn-lg btn-block mb-2" href="{% url 'adults' %}">Повнолітні</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="btn btn-outline-dark btn-lg btn-lg btn-block mb-2" href="{% url 'sex' %}">Стать</a>
                     </li>
                   </ul>
                 </div>
